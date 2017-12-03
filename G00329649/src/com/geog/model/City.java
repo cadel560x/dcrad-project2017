@@ -1,5 +1,8 @@
 package com.geog.model;
 
+import javax.faces.bean.ManagedBean;
+
+@ManagedBean
 public class City {
 //	Instance variables
 	private String code;

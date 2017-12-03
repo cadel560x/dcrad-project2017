@@ -1,10 +1,13 @@
 package com.geog.model;
 
+import javax.faces.bean.ManagedBean;
+
+@ManagedBean
 public class Region {
 //	Instance variables	
 	private String code;
 	private String name;
-	private String desc;
+	private StringBuilder desc;
 	
 	
 	
@@ -33,11 +36,11 @@ public class Region {
 		this.name = name;
 	}
 	
-	public String getDesc() {
+	public StringBuilder getDesc() {
 		return desc;
 	}
 	
-	public void setDesc(String desc) {
+	public void setDesc(StringBuilder desc) {
 		this.desc = desc;
 	}
 	
