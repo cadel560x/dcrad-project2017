@@ -13,7 +13,7 @@ public class Region {
 	
 	
 	
-//	Constructor	
+//	Constructors
 	public Region() {
 	}
 	
