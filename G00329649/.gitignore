@@ -34,7 +34,7 @@ hs_err_pid*
 .classpath
 
 # Ignore .project
-.project
+.project/
 
 # Ignore .metadata
-.metadata
+.metadata/
