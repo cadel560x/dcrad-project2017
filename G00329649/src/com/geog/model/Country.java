@@ -16,9 +16,15 @@ public class Country {
 	public Country() {
 	}
 
+	public Country(String code, String name, StringBuilder details) {
+		this.code = code;
+		this.name = name;
+		this.details = details;
+	}
 
-
-
+	
+	
+	
 //	Accessors and mutators
 	public String getCode() {
 		return code;

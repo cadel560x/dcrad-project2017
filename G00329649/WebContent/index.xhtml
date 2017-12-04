@@ -7,6 +7,9 @@
 	<title>Geography DB</title>
 </h:head>
 <h:body>
+	<f:metadata>
+  		<f:event type="preRenderView" listener="#{com.geog.controller.countryController.loadCountries()}"/>
+	</f:metadata>
 	<h:link value="Countries" outcome="list_countries"/>
 	<br/>
 	<h:link value="Regions" outcome="list_regions"/>

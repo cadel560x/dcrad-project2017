@@ -4,5 +4,11 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean
 public class CityController {
+//	Instance variables
+	
+	
+	
+	
+//	Constructor
 
 }
