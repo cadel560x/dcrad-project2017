@@ -46,7 +46,7 @@
 		    </h:column>
 		    <h:column>
 		          <f:facet name="header">Action</f:facet>
-		          <h:link value="All Details" outcome="index"/>
+		          <h:commandLink value="All Details" action="#{cityController.showDetails(city)}" />
 		    </h:column>
 		</h:dataTable>
 		<h:link value="Home" outcome="index"/>

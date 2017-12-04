@@ -4,12 +4,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.naming.NamingException;
 
 import com.geog.dao.RegionDao;
 import com.geog.model.Region;
 
 @ManagedBean
+@SessionScoped
 public class RegionController {
 //	Instance variables
 	private List<Region> regions;

@@ -4,12 +4,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.naming.NamingException;
 
 import com.geog.dao.CountryDao;
 import com.geog.model.Country;
 
 @ManagedBean
+@SessionScoped
 public class CountryController {
 //	Instance variables
 	private List<Country> countries;
