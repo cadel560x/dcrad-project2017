@@ -8,6 +8,7 @@ public class Region {
 	private String code;
 	private String name;
 	private StringBuilder desc;
+	private String co_code;
 	
 	
 	
@@ -16,9 +17,17 @@ public class Region {
 	public Region() {
 	}
 	
-	
-	
-	
+	public Region(String code, String name, StringBuilder desc, String co_code) {
+		this.code = code;
+		this.name = name;
+		this.desc = desc;
+		
+		this.co_code = co_code;
+	}
+
+
+
+
 //	Accessors and mutators
 	public String getCode() {
 		return code;
@@ -42,6 +51,14 @@ public class Region {
 	
 	public void setDesc(StringBuilder desc) {
 		this.desc = desc;
+	}
+
+	public String getCo_code() {
+		return co_code;
+	}
+
+	public void setCo_code(String co_code) {
+		this.co_code = co_code;
 	}
 	
 } // class Region

@@ -31,8 +31,10 @@ public class CountryDao {
 	
 	
 	
+//	Methods
 	public List<Country> getCountries() throws SQLException {
 		List<Country> countries = new ArrayList<>();
+		
 		Connection conn = mysqlDS.getConnection();
 		Statement myStmt = conn.createStatement();
 		String query = "select * from country;";
@@ -40,11 +42,11 @@ public class CountryDao {
 	    ResultSet rs = myStmt.executeQuery(query);
 
 	    while ( rs.next() ) {
-		    	String code = rs.getString("co_code");
-		    	String name = rs.getString("co_name");
-		    	StringBuilder details = new StringBuilder(rs.getString("co_details"));
-		    	
-		    	countries.add(new Country(code, name, details));
+	    	String code = rs.getString("co_code");
+	    	String name = rs.getString("co_name");
+	    	StringBuilder details = new StringBuilder(rs.getString("co_details"));
+	    	
+	    	countries.add(new Country(code, name, details));
 	    } // while
 	    
 	    return countries;
