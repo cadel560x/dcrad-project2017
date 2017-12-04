@@ -5,11 +5,11 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
 	<title>Geography DB</title>
+	<f:metadata>
+  		<f:event type="preRenderView" listener="#{countryController.loadCountries}"/>
+	</f:metadata>
 </h:head>
 <h:body>
-	<f:metadata>
-  		<f:event type="preRenderView" listener="#{com.geog.controller.countryController.loadCountries()}"/>
-	</f:metadata>
 	<h:link value="Countries" outcome="list_countries"/>
 	<br/>
 	<h:link value="Regions" outcome="list_regions"/>
@@ -19,5 +19,9 @@
 	<h:link value="Heads of State" outcome="list_heads_of_state"/>
 	<br/>
 	<h:link value="Find cities" outcome="find_cities"/>
+	<br/>
+	#{countryController.countries[0].code}
+	<br/>
+	Hello World
 </h:body>
 </html>

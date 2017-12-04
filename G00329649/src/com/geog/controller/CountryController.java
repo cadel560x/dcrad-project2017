@@ -8,13 +8,11 @@ import javax.naming.NamingException;
 
 import com.geog.dao.CountryDao;
 import com.geog.model.Country;
-import com.geog.model.Region;
 
 @ManagedBean
 public class CountryController {
 //	Instance variables
 	private List<Country> countries;
-	private List<Region> regions;
 	private CountryDao countryDao;
 	
 	
@@ -35,7 +33,19 @@ public class CountryController {
 	
 	
 	
-//	Methods
+//	Accessors and mutators
+    public List<Country> getCountries() {
+		return countries;
+	}
+
+	public void setCountries(List<Country> countries) {
+		this.countries = countries;
+	}
+
+
+
+
+	//	Methods
 	public void loadCountries() {
 		try {
 			countries = countryDao.getCountries();
