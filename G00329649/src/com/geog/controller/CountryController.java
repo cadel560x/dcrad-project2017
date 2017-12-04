@@ -22,9 +22,9 @@ public class CountryController {
 	public CountryController() {
 		try {
 			countryDao = new CountryDao();
-//			countries = countryDao.getCountries();
-//		} catch (NamingException | SQLException e) {
-		} catch (NamingException e) {
+			countries = countryDao.getCountries();
+		} catch (NamingException | SQLException e) {
+//		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -46,14 +46,14 @@ public class CountryController {
 
 
 	//	Methods
-	public void loadCountries() {
-		try {
-			countries = countryDao.getCountries();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	} // loadCountries
+//	public void loadCountries() { // I think we fetch the 'countries' list through the default constructor
+//		try {
+//			countries = countryDao.getCountries();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//	} // loadCountries
 	
 } // class CountryController
