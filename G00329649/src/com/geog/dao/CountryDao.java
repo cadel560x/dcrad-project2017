@@ -17,10 +17,10 @@ import com.geog.model.Country;
 
 public class CountryDao {
 //	Instance variables
-	private static DataSource mysqlDS;
+	private DataSource mysqlDS;
 	private Connection conn;
 	private Statement myStmt;
-	private String query;
+	private StringBuilder query;
 	private ResultSet rs;
 
 	
@@ -33,6 +33,8 @@ public class CountryDao {
 	    mysqlDS = (DataSource) context.lookup(jndiName);
 	    conn = mysqlDS.getConnection();
 	    myStmt = conn.createStatement();
+//	    Instantiate the StringBuffer
+	    query = new StringBuilder("");
 	}
 	
 	
@@ -41,33 +43,32 @@ public class CountryDao {
 //	Methods
 	public List<Country> getCountries() throws SQLException {
 		List<Country> countries = new ArrayList<>();
-//		String code;
-//    	String name;
-//    	StringBuilder details;
 		
-		query = "select * from country;";
-	    rs = myStmt.executeQuery(query);
+		query.append("select * from country;");
+	    rs = myStmt.executeQuery(query.toString());
 
 	    while ( rs.next() ) {
-//	    	code = rs.getString("co_code");
-//	    	name = rs.getString("co_name");
-//	    	details = new StringBuilder(rs.getString("co_details"));
-	    	
-	    	countries.add(new Country(rs.getString("co_code"), rs.getString("co_name"), new StringBuilder(rs.getString("co_details"))));
+	    		countries.add(new Country(rs.getString("co_code"), rs.getString("co_name"), new StringBuilder(rs.getString("co_details"))));
 	    } // while
+	    
+//	    Reset the StringBuilder
+	    query.setLength(0);
 	    
 	    return countries;
 
 	} // getCountries
 	
 	
-	public static Country getCountry(String co_code) throws SQLException {
-		Connection conn = mysqlDS.getConnection();
-		PreparedStatement myStmt = conn.prepareStatement("select * " +
-			"from contry " +
-			"where co_code = ?;");
+	public Country getCountry(String co_code) throws SQLException {
+		query.append("select * from country where co_code = '?';");
+		System.out.println(query.toString());
+		PreparedStatement myStmt = conn.prepareStatement(query.toString());
 		myStmt.setString(1, co_code);
+		
 		ResultSet rs = myStmt.executeQuery();
+		
+//	    Reset the StringBuilder		
+		query.setLength(0);
 		
 		return new Country(rs.getString("co_code"), rs.getString("co_name"), new StringBuilder(rs.getString("co_details")));
 		

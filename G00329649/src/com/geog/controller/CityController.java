@@ -10,6 +10,7 @@ import javax.naming.NamingException;
 import com.geog.dao.CityDao;
 import com.geog.dao.CountryDao;
 import com.geog.model.City;
+import com.geog.model.Country;
 
 @ManagedBean
 @SessionScoped
@@ -18,6 +19,7 @@ public class CityController {
 	private List<City> cities;
 	private CityDao cityDao;
 	private City city;
+	private Country country;
 	
 	
 	
@@ -53,13 +55,24 @@ public class CityController {
 		this.city = city;
 	}
 
+	public Country getCountry() {
+		return country;
+	}
 
-//	Methods
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
+
+
+
+	//	Methods
 	public String showDetails(City city) {
 		try {
 			this.city = city;
-			CountryDao.getCountry(city.getCo_code());
-		} catch (SQLException e) {
+//			System.out.println(city.getCo_code());
+			this.country = new CountryDao().getCountry(city.getCo_code());
+		} catch (SQLException | NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
