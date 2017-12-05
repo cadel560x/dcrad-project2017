@@ -9,7 +9,7 @@ public class City {
 	private String name;
 	private int population;
 	private boolean coastal;
-	private double areaKM;
+	private double area;
 	
 	private String co_code;
 	private String reg_code;
@@ -21,12 +21,12 @@ public class City {
 	public City() {
 	}
 	
-	public City(String code, String name, int population, boolean coastal, double areaKM, String co_code, String reg_code) {
+	public City(String code, String name, int population, boolean coastal, double area, String co_code, String reg_code) {
 		this.code = code;
 		this.name = name;
 		this.population = population;
 		this.coastal = coastal;
-		this.areaKM = areaKM;
+		this.area = area;
 		
 		this.co_code = co_code;
 		this.reg_code = reg_code;
@@ -69,12 +69,12 @@ public class City {
 		this.coastal = coastal;
 	}
 	
-	public double getAreaKM() {
-		return areaKM;
+	public double getArea() {
+		return area;
 	}
 
-	public void setAreaKM(double areaKM) {
-		this.areaKM = areaKM;
+	public void setArea(double area) {
+		this.area = area;
 	}
 
 	public String getCo_code() {

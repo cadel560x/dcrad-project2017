@@ -48,9 +48,9 @@ public class CityDao {
 	    	String name = rs.getString("cty_name");
 	    	int population = rs.getInt("population");
 	    	boolean coastal = rs.getBoolean("isCoastal");
-	    	double areaKM = rs.getDouble("areaKm");
+	    	double area = rs.getDouble("areaKm");
 	    	
-	    	cities.add(new City(code, name, population, coastal, areaKM, country_code, reg_code));
+	    	cities.add(new City(code, name, population, coastal, area, country_code, reg_code));
 	    } // while
 	    
 	    return cities;

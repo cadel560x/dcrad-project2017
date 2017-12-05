@@ -15,13 +15,14 @@ import com.geog.model.City;
 public class CityController {
 //	Instance variables
 	private List<City> cities;
+	private CityDao cityDao;
+	private City city;
 	
 	
 	
 	
-//	Contructor
+//	Constructor
 	public CityController() {
-		CityDao cityDao;
 		try {
 			cityDao = new CityDao();
 			cities = cityDao.getCities();
@@ -42,10 +43,20 @@ public class CityController {
 	public void setCities(List<City> cities) {
 		this.cities = cities;
 	}
-	
-	
+
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
+	}
+
+
 //	Methods
 	public String showDetails(City city) {
+		this.city = city;
+		CountryDao countryDao
 		
 		return "show_city_details.xhtml";
 	}

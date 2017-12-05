@@ -17,15 +17,21 @@ import com.geog.model.Country;
 public class CountryDao {
 //	Instance variables
 	private DataSource mysqlDS;
+	private Connection conn;
+	private Statement myStmt;
+	private String query;
+	private ResultSet rs;
 
 	
 	
 	
 //	Constructor
-	public CountryDao() throws NamingException {
+	public CountryDao() throws NamingException, SQLException {
 		Context context = new InitialContext();
 	    String jndiName = "java:comp/env/jdbc/geography";
 	    mysqlDS = (DataSource) context.lookup(jndiName);
+	    conn = mysqlDS.getConnection();
+	    myStmt = conn.createStatement();
 	}
 	
 	
@@ -35,11 +41,9 @@ public class CountryDao {
 	public List<Country> getCountries() throws SQLException {
 		List<Country> countries = new ArrayList<>();
 		
-		Connection conn = mysqlDS.getConnection();
-		Statement myStmt = conn.createStatement();
-		String query = "select * from country;";
-	    
-	    ResultSet rs = myStmt.executeQuery(query);
+//		Statement myStmt = conn.createStatement();
+		query = "select * from country;";
+	    rs = myStmt.executeQuery(query);
 
 	    while ( rs.next() ) {
 	    	String code = rs.getString("co_code");
@@ -52,5 +56,16 @@ public class CountryDao {
 	    return countries;
 
 	} // getCountries
+	
+	
+	static public Country getCountry(String co_code) {
+//		query = "select * from country;";
+//	    rs = myStmt.executeQuery(query);
+	    
+		Country country = new Country();
+		
+		return country;
+		
+	} // getCountry
 
 } // CountryDao
