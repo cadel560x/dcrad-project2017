@@ -11,6 +11,7 @@ import com.geog.dao.CityDao;
 import com.geog.dao.CountryDao;
 import com.geog.model.City;
 import com.geog.model.Country;
+import com.geog.model.Region;
 
 @ManagedBean
 @SessionScoped
@@ -19,6 +20,7 @@ public class CityController {
 	private List<City> cities;
 	private CityDao cityDao;
 	private City city;
+	private Region region;
 	private Country country;
 	
 	
@@ -70,7 +72,6 @@ public class CityController {
 	public String showDetails(City city) {
 		try {
 			this.city = city;
-//			System.out.println(city.getCo_code());
 			this.country = new CountryDao().getCountry(city.getCo_code());
 		} catch (SQLException | NamingException e) {
 			// TODO Auto-generated catch block

@@ -44,7 +44,7 @@ public class CountryDao {
 	public List<Country> getCountries() throws SQLException {
 		List<Country> countries = new ArrayList<>();
 		
-		query.append("select * from country;");
+		query.append("SELECT * FROM country;");
 	    rs = myStmt.executeQuery(query.toString());
 
 	    while ( rs.next() ) {
@@ -60,12 +60,12 @@ public class CountryDao {
 	
 	
 	public Country getCountry(String co_code) throws SQLException {
-		query.append("select * from country where co_code = '?';");
-		System.out.println(query.toString());
+		query.append("SELECT * FROM country WHERE co_code = ?");
 		PreparedStatement myStmt = conn.prepareStatement(query.toString());
 		myStmt.setString(1, co_code);
 		
 		ResultSet rs = myStmt.executeQuery();
+		rs.next();
 		
 //	    Reset the StringBuilder		
 		query.setLength(0);
