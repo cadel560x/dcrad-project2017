@@ -8,6 +8,7 @@ import javax.faces.bean.SessionScoped;
 import javax.naming.NamingException;
 
 import com.geog.dao.CityDao;
+import com.geog.dao.CountryDao;
 import com.geog.model.City;
 
 @ManagedBean
@@ -55,8 +56,13 @@ public class CityController {
 
 //	Methods
 	public String showDetails(City city) {
-		this.city = city;
-		CountryDao countryDao
+		try {
+			this.city = city;
+			CountryDao.getCountry(city.getCo_code());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return "show_city_details.xhtml";
 	}

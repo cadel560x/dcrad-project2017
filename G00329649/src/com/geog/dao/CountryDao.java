@@ -1,6 +1,7 @@
 package com.geog.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,7 +17,7 @@ import com.geog.model.Country;
 
 public class CountryDao {
 //	Instance variables
-	private DataSource mysqlDS;
+	private static DataSource mysqlDS;
 	private Connection conn;
 	private Statement myStmt;
 	private String query;
@@ -40,17 +41,19 @@ public class CountryDao {
 //	Methods
 	public List<Country> getCountries() throws SQLException {
 		List<Country> countries = new ArrayList<>();
+//		String code;
+//    	String name;
+//    	StringBuilder details;
 		
-//		Statement myStmt = conn.createStatement();
 		query = "select * from country;";
 	    rs = myStmt.executeQuery(query);
 
 	    while ( rs.next() ) {
-	    	String code = rs.getString("co_code");
-	    	String name = rs.getString("co_name");
-	    	StringBuilder details = new StringBuilder(rs.getString("co_details"));
+//	    	code = rs.getString("co_code");
+//	    	name = rs.getString("co_name");
+//	    	details = new StringBuilder(rs.getString("co_details"));
 	    	
-	    	countries.add(new Country(code, name, details));
+	    	countries.add(new Country(rs.getString("co_code"), rs.getString("co_name"), new StringBuilder(rs.getString("co_details"))));
 	    } // while
 	    
 	    return countries;
@@ -58,13 +61,15 @@ public class CountryDao {
 	} // getCountries
 	
 	
-	static public Country getCountry(String co_code) {
-//		query = "select * from country;";
-//	    rs = myStmt.executeQuery(query);
-	    
-		Country country = new Country();
+	public static Country getCountry(String co_code) throws SQLException {
+		Connection conn = mysqlDS.getConnection();
+		PreparedStatement myStmt = conn.prepareStatement("select * " +
+			"from contry " +
+			"where co_code = ?;");
+		myStmt.setString(1, co_code);
+		ResultSet rs = myStmt.executeQuery();
 		
-		return country;
+		return new Country(rs.getString("co_code"), rs.getString("co_name"), new StringBuilder(rs.getString("co_details")));
 		
 	} // getCountry
 
