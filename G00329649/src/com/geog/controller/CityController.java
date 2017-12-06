@@ -124,13 +124,21 @@ public class CityController {
 	} // showDetails
 	
 	
-	public String findCities() {
-		
-		
-		
+	public String searchCities() {
+		try {
+			this.cities = cityDao.searchCities(this.city, this.populationCriteria);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return "search_results.xhtml";
 		
-	}
+	} // searchCities
+	
+	
+	public void clearCity() {
+		this.city = null;
+	} // clearCity
 	
 } // class CityController
