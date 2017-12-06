@@ -9,6 +9,7 @@ import javax.naming.NamingException;
 
 import com.geog.dao.CityDao;
 import com.geog.dao.CountryDao;
+import com.geog.dao.RegionDao;
 import com.geog.model.City;
 import com.geog.model.Country;
 import com.geog.model.Region;
@@ -65,20 +66,29 @@ public class CityController {
 		this.country = country;
 	}
 
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
 
 
 
-	//	Methods
+
+//	Methods
 	public String showDetails(City city) {
 		try {
 			this.city = city;
 			this.country = new CountryDao().getCountry(city.getCo_code());
+			this.region = new RegionDao().getRegion(city.getReg_code());
 		} catch (SQLException | NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		return "show_city_details.xhtml";
-	}
+	} // showDetails
 	
 } // class CityController

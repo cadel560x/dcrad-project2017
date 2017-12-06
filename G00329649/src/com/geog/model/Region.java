@@ -25,10 +25,10 @@ public class Region {
 		this.co_code = co_code;
 	}
 
+	
+	
 
-
-
-//	Accessors and mutators
+	//	Accessors and mutators
 	public String getCode() {
 		return code;
 	}
