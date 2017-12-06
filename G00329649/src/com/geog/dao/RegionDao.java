@@ -59,7 +59,7 @@ public class RegionDao {
 	} // getRegions
 	
 	
-	public Region getRegion(String reg_code) throws SQLException {
+	public Region searchRegion(String reg_code) throws SQLException {
 		query.append("SELECT * FROM region WHERE reg_code = ?");
 		PreparedStatement myStmt = conn.prepareStatement(query.toString());
 		myStmt.setString(1, reg_code);

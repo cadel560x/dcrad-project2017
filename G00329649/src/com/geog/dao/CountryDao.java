@@ -59,7 +59,7 @@ public class CountryDao {
 	} // getCountries
 	
 	
-	public Country getCountry(String co_code) throws SQLException {
+	public Country searchCountry(String co_code) throws SQLException {
 		query.append("SELECT * FROM country WHERE co_code = ?");
 		PreparedStatement myStmt = conn.prepareStatement(query.toString());
 		myStmt.setString(1, co_code);
@@ -72,6 +72,6 @@ public class CountryDao {
 		
 		return new Country(rs.getString("co_code"), rs.getString("co_name"), new StringBuilder(rs.getString("co_details")));
 		
-	} // getCountry
+	} // searchCountry
 
 } // CountryDao

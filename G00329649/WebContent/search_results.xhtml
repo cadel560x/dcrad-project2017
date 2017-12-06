@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:head>
+		<meta charset="UTF-8" />
+		<title>Search Results</title>
+	</h:head>
+	<h:body>
+		<h:form>
+			<h:dataTable value = "#{cityController.cities}" var="city"
+	   			styleClass="cityTable"
+	   			headerClass="cityTableHeader"
+	   			rowClasses="cityTableOddRow,cityTableEvenRow">
+	   			<h:column>    				
+				      <f:facet name="header">City Code</f:facet>
+				      #{city.code}
+				</h:column>
+				<h:column>
+			          <f:facet name="header">City Name</f:facet>
+			          #{city.name}
+			    </h:column>
+	   			<h:column>    				
+				      <f:facet name="header">Country</f:facet>
+				      #{city.co_code}
+				</h:column>
+				<h:column>
+				      <f:facet name="header">Region</f:facet>
+				      #{city.reg_code}
+				</h:column>
+			    <h:column>
+			          <f:facet name="header">City Population</f:facet>
+			          #{city.population}
+			    </h:column>
+			    <h:column>
+			          <f:facet name="header">By the Sea</f:facet>
+			          #{city.coastal}
+			    </h:column>
+			    <h:column>
+			          <f:facet name="header">Area (KM)</f:facet>
+			          #{city.area}
+			    </h:column>
+			    <h:column>
+			          <f:facet name="header">Action</f:facet>
+			          <h:commandLink value="All Details" action="#{cityController.showDetails(city)}" />
+			    </h:column>
+			</h:dataTable>
+		</h:form>
+		
+		<h:link value="Home" outcome="index"/> <h:link value="Search" outcome="find_cities"/>
+	</h:body>
+</html>

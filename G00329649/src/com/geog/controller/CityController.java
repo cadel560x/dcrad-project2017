@@ -1,6 +1,7 @@
 package com.geog.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -20,9 +21,12 @@ public class CityController {
 //	Instance variables
 	private List<City> cities;
 	private CityDao cityDao;
+	private CountryDao countryDao;
+	private RegionDao regionDao;
 	private City city;
 	private Region region;
 	private Country country;
+	private String populationCriteria;
 	
 	
 	
@@ -31,6 +35,8 @@ public class CityController {
 	public CityController() {
 		try {
 			cityDao = new CityDao();
+			countryDao = new CountryDao();
+			regionDao =  new RegionDao();
 			cities = cityDao.getCities();
 		} catch (NamingException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -74,21 +80,57 @@ public class CityController {
 		this.region = region;
 	}
 
+	public String getPopulationCriteria() {
+		return populationCriteria;
+	}
+
+	public void setPopulationCriteria(String populationCriteria) {
+		this.populationCriteria = populationCriteria;
+	}
+
 
 
 
 //	Methods
-	public String showDetails(City city) {
+	public void setCountry(String co_code) { // overloaded setter, it has a 'String' parameter
 		try {
-			this.city = city;
-			this.country = new CountryDao().getCountry(city.getCo_code());
-			this.region = new RegionDao().getRegion(city.getReg_code());
-		} catch (SQLException | NamingException e) {
+			this.country = countryDao.searchCountry(co_code);
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+	} // setCountry(String co_code)
+	
+	
+	public void setRegion(String reg_code) { // overloaded setter, it has a 'String' parameter
+		try {
+			this.region = regionDao.searchRegion(reg_code);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	} // setRegion(String reg_code)
+	
+	
+	public String showDetails(City city) {
+		this.city = city;
+		setCountry(city.getCo_code());
+		setRegion(city.getReg_code());
 		
 		return "show_city_details.xhtml";
+		
 	} // showDetails
+	
+	
+	public String findCities() {
+		
+		
+		
+		
+		return "search_results.xhtml";
+		
+	}
 	
 } // class CityController

@@ -7,7 +7,7 @@
 		<meta charset="ISO-8859-1" />
 		<title>List Cities</title>
 	</h:head>
-	<body>
+	<h:body>
 		<h:form>
       		<h:commandButton value="Add City" action="add-city"/>
 			<h:dataTable value = "#{cityController.cities}" var="city"
@@ -49,5 +49,5 @@
 			</h:dataTable>
 		</h:form>
 		<h:link value="Home" outcome="index"/>
-	</body>
+	</h:body>
 </html>
