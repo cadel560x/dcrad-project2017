@@ -48,7 +48,7 @@ public class CityDao {
 	    rs = myStmt.executeQuery(query.toString());
 
 	    while ( rs.next() ) {
-	    	cities.add(new City(rs.getString("cty_code"), rs.getString("cty_name"), rs.getInt("population"), rs.getBoolean("isCoastal"), rs.getDouble("areaKm"), rs.getString("co_code"), rs.getString("reg_code")));
+	    		cities.add(new City(rs.getString("cty_code"), rs.getString("cty_name"), rs.getInt("population"), rs.getBoolean("isCoastal"), rs.getDouble("areaKm"), rs.getString("co_code"), rs.getString("reg_code")));
 	    } // while
 	    
 //	    Reset the StringBuilder
@@ -59,45 +59,61 @@ public class CityDao {
 	} // getCities
 	
 	
-	public List<City> searchCities(City cityQueryObject, String populationCriteria) throws SQLException {
-		PreparedStatement myStmt; 
+	public List<City> searchCities(City cityQueryObject, String population, String populationCriteria) throws SQLException {
+		PreparedStatement myStmt;
+		int stmtIndex = 0;
 		List<City> cities = new ArrayList<>();
-		String cty_code = cityQueryObject.getCode();
+		String co_code = cityQueryObject.getCo_code();
 		
-		query.append("SELECT * FROM city WHERE isCoastal = ? ");
+		query.append("SELECT * FROM city WHERE isCoastal = ");
 		
-		if ( cty_code != null ) {
-			query.append("AND cty_code = ? ");
+		if ( cityQueryObject.isCoastal() ) {
+			query.append("1");
+		}
+		else {
+			query.append("2");
 		}
 		
-		if ( ! populationCriteria.equals("") ) {
-			query.append("AND population ");
+		if ( ! co_code.equals("") ) {
+			query.append(" AND co_code = ?");
+		}
+		
+		if ( ! population.equals("") ) {
+			query.append(" AND population ");
 			
 			if ( populationCriteria.equalsIgnoreCase("lt") ) {
-				query.append(" < ? ");
+				query.append("< ?");
 			}
 			else if ( populationCriteria.equalsIgnoreCase("gt") ) {
-				query.append(" > ? ");
+				query.append("> ?");
 			}
 			else if ( populationCriteria.equalsIgnoreCase("eq") ) {
-				query.append(" = ? ");
+				query.append("= ?");
+			} // if - else if - else if
+			
+		} // if ( ! population.equals("") )
+		
+		try {
+			myStmt = conn.prepareStatement(query.toString());
+			if (!co_code.equals("")) {
+				myStmt.setString(++stmtIndex, co_code);
 			}
-		}
-		
-		myStmt = conn.prepareStatement(query.toString());
-		myStmt.setBoolean(1, cityQueryObject.isCoastal());
-		if ( cty_code != null ) {
-			myStmt.setString(2, cty_code);
-		}
-		if ( ! populationCriteria.equals("") ) {
-			myStmt.setInt(3, cityQueryObject.getPopulation());
-		}
-		
-		rs = myStmt.executeQuery(query.toString());
-		
-		while ( rs.next() ) {
-	    	cities.add(new City(rs.getString("cty_code"), rs.getString("cty_name"), rs.getInt("population"), rs.getBoolean("isCoastal"), rs.getDouble("areaKm"), rs.getString("co_code"), rs.getString("reg_code")));
-	    } // while
+			
+			if (!population.equals("")) {
+				myStmt.setInt(++stmtIndex, cityQueryObject.getPopulation());
+			}
+			
+			rs = myStmt.executeQuery();
+			
+			while (rs.next()) {
+				cities.add(new City(rs.getString("cty_code"), rs.getString("cty_name"), rs.getInt("population"),
+						rs.getBoolean("isCoastal"), rs.getDouble("areaKm"), rs.getString("co_code"),
+						rs.getString("reg_code")));
+			} // while
+		} finally {
+			// Reset the StringBuilder
+		    query.setLength(0);
+		} // try - finally
 		
 		return cities;
 		

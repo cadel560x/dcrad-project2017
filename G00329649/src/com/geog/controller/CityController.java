@@ -1,7 +1,6 @@
 package com.geog.controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -33,15 +32,20 @@ public class CityController {
 	
 //	Constructor
 	public CityController() {
+		country = new Country();
+		region = new Region();
+		city = new City();
+		
 		try {
 			cityDao = new CityDao();
 			countryDao = new CountryDao();
 			regionDao =  new RegionDao();
+			
 			cities = cityDao.getCities();
 		} catch (NamingException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		} // try - catch
+		
 	}
 
 
@@ -54,6 +58,14 @@ public class CityController {
 
 	public void setCities(List<City> cities) {
 		this.cities = cities;
+	}
+
+	public CountryDao getCountryDao() {
+		return countryDao;
+	}
+
+	public void setCountryDao(CountryDao countryDao) {
+		this.countryDao = countryDao;
 	}
 
 	public City getCity() {
@@ -92,53 +104,42 @@ public class CityController {
 
 
 //	Methods
-	public void setCountry(String co_code) { // overloaded setter, it has a 'String' parameter
-		try {
-			this.country = countryDao.searchCountry(co_code);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	} // setCountry(String co_code)
-	
-	
-	public void setRegion(String reg_code) { // overloaded setter, it has a 'String' parameter
-		try {
-			this.region = regionDao.searchRegion(reg_code);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	} // setRegion(String reg_code)
-	
-	
 	public String showDetails(City city) {
 		this.city = city;
-		setCountry(city.getCo_code());
-		setRegion(city.getReg_code());
-		
+		try {
+			setCountry(countryDao.searchCountry(city.getCo_code()));
+			setRegion(regionDao.searchRegion(city.getReg_code()));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} // try - catch
+
 		return "show_city_details.xhtml";
 		
 	} // showDetails
 	
 	
-	public String searchCities() {
+	public String searchCities(String population) {
 		try {
-			this.cities = cityDao.searchCities(this.city, this.populationCriteria);
+			// 'population' is a 'String' method parameter, not an integer
+			// This way, we can know if the user typed something into the corresponding input textbox.
+			if ( ! population.equals("") ) {
+				this.city.setPopulation(Integer.parseInt(population));
+			}
+			this.cities = cityDao.searchCities(this.city, population, this.populationCriteria);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} // try - catch
 		
 		return "search_results.xhtml";
 		
 	} // searchCities
 	
 	
-	public void clearCity() {
-		this.city = null;
-	} // clearCity
+	public void resetSearch() {
+		this.city = new City();
+		this.city.setCoastal(true);
+		this.setPopulationCriteria("lt");
+		
+	} // resetSearch
 	
 } // class CityController

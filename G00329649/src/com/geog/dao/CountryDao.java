@@ -33,7 +33,7 @@ public class CountryDao {
 	    mysqlDS = (DataSource) context.lookup(jndiName);
 	    conn = mysqlDS.getConnection();
 	    myStmt = conn.createStatement();
-//	    Instantiate the StringBuffer
+	    // Instantiate the StringBuffer
 	    query = new StringBuilder("");
 	}
 	
@@ -42,18 +42,24 @@ public class CountryDao {
 	
 //	Methods
 	public List<Country> getCountries() throws SQLException {
-		List<Country> countries = new ArrayList<>();
+		List<Country> countries;
 		
 		query.append("SELECT * FROM country;");
-	    rs = myStmt.executeQuery(query.toString());
-
-	    while ( rs.next() ) {
-	    		countries.add(new Country(rs.getString("co_code"), rs.getString("co_name"), new StringBuilder(rs.getString("co_details"))));
-	    } // while
-	    
-//	    Reset the StringBuilder
-	    query.setLength(0);
-	    
+		
+	    try {
+			rs = myStmt.executeQuery(query.toString());
+			countries = new ArrayList<>();
+			
+			while (rs.next()) {
+				countries.add(new Country(rs.getString("co_code"), rs.getString("co_name"),
+						new StringBuilder(rs.getString("co_details"))));
+			} // while
+		} finally {
+			// Reset the StringBuilder
+		    query.setLength(0);
+		    
+		} // try - finally
+		
 	    return countries;
 
 	} // getCountries
@@ -61,14 +67,17 @@ public class CountryDao {
 	
 	public Country searchCountry(String co_code) throws SQLException {
 		query.append("SELECT * FROM country WHERE co_code = ?");
-		PreparedStatement myStmt = conn.prepareStatement(query.toString());
-		myStmt.setString(1, co_code);
 		
-		ResultSet rs = myStmt.executeQuery();
-		rs.next();
-		
-//	    Reset the StringBuilder		
-		query.setLength(0);
+		try {
+			PreparedStatement myStmt = conn.prepareStatement(query.toString());
+			myStmt.setString(1, co_code);
+			rs = myStmt.executeQuery();
+			rs.next();
+		} finally {
+			// Reset the StringBuilder		
+			query.setLength(0);
+			
+		} // try - finally
 		
 		return new Country(rs.getString("co_code"), rs.getString("co_name"), new StringBuilder(rs.getString("co_details")));
 		

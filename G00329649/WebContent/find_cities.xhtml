@@ -5,7 +5,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	<h:head>
 		<meta charset="UTF-8" />
-		<f:event type="preRenderView" listener="#{cityController.clearCity}" />
+		<f:event type="preRenderView" listener="#{cityController.resetSearch}" />
 		<title>Find Cities</title>
 	</h:head>
 	<h:body>
@@ -18,11 +18,11 @@
        						<span>Population: </span>
 	      				</label>
 	      				<h:selectOneMenu id="populationCriteria" value="#{cityController.populationCriteria}">
-    						<f:selectItem itemValue="lt" itemLabel="Less Than" />
-    						<f:selectItem itemValue="gt" itemLabel="Greater Than" />
-    						<f:selectItem itemValue="eq" itemLabel="Equal To" />
+	    						<f:selectItem itemValue="lt" itemLabel="Less Than" />
+	    						<f:selectItem itemValue="gt" itemLabel="Greater Than" />
+	    						<f:selectItem itemValue="eq" itemLabel="Equal To" />
 						</h:selectOneMenu>
-						<h:inputText id="population" value="#{cityController.city.population}" />
+						<h:inputText id="population" binding="#{input1}" />
 	    				</p>
 					<p>
 	      				<label for="countryCode">
@@ -43,7 +43,7 @@
 			</section>
 			<section>
 				<p>
-					<h:commandButton value="Search" action="#{cityController.searchCities(city)}" />
+					<h:commandButton value="Search" action="#{cityController.searchCities(input1.value)}" />
 				</p>
 			</section>
 		</h:form>

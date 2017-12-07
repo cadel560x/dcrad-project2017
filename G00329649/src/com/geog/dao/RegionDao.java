@@ -42,18 +42,24 @@ public class RegionDao {
 	
 //	Methods
 	public List<Region> getRegions() throws SQLException {
-		List<Region> regions = new ArrayList<>();
+		List<Region> regions;
 
 		query.append("SELECT * FROM region;");
-	    rs = myStmt.executeQuery(query.toString());
+		
+	    try {
+			rs = myStmt.executeQuery(query.toString());
+			regions = new ArrayList<>();
+			
+			while (rs.next()) {
+				regions.add(new Region(rs.getString("reg_code"), rs.getString("reg_name"),
+						new StringBuilder(rs.getString("reg_desc")), rs.getString("co_code")));
+			} // while
+		} finally {
+			// Reset the StringBuilder
+		    query.setLength(0);
+		    
+		} // try - finally
 
-	    while ( rs.next() ) {
-	    		regions.add(new Region(rs.getString("reg_code"), rs.getString("reg_name"), new StringBuilder(rs.getString("reg_desc")), rs.getString("co_code")));
-	    } // while
-	    
-//	    Reset the StringBuilder
-	    query.setLength(0);	    
-	    
 	    return regions;
 
 	} // getRegions
@@ -61,14 +67,17 @@ public class RegionDao {
 	
 	public Region searchRegion(String reg_code) throws SQLException {
 		query.append("SELECT * FROM region WHERE reg_code = ?");
-		PreparedStatement myStmt = conn.prepareStatement(query.toString());
-		myStmt.setString(1, reg_code);
 		
-		ResultSet rs = myStmt.executeQuery();
-		rs.next();
-		
-//	    Reset the StringBuilder		
-		query.setLength(0);
+		try {
+			PreparedStatement myStmt = conn.prepareStatement(query.toString());
+			myStmt.setString(1, reg_code);
+			rs = myStmt.executeQuery();
+			rs.next();
+		} finally {
+		// Reset the StringBuilder		
+			query.setLength(0);
+			
+		} // try - finally
 		
 		return new Region(rs.getString("reg_code"), rs.getString("reg_name"), new StringBuilder(rs.getString("reg_desc")), rs.getString("co_code"));
 		
