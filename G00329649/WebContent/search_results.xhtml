@@ -24,11 +24,11 @@
 			    </h:column>
 	   			<h:column>    				
 				      <f:facet name="header">Country</f:facet>
-				      #{cityController.countryDao.searchCountry(city.co_code).name}
+				      #{cityController.country.name}
 				</h:column>
 				<h:column>
 				      <f:facet name="header">Region</f:facet>
-				      #{cityController.regionDao.searchRegion(city.reg_code).name}
+				      #{cityController.region.name}
 				</h:column>
 			    <h:column>
 			          <f:facet name="header">City Population</f:facet>

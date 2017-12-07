@@ -13,8 +13,8 @@ import com.geog.dao.CityDao;
 import com.geog.dao.CountryDao;
 import com.geog.dao.RegionDao;
 import com.geog.model.City;
-//import com.geog.model.Country;
-//import com.geog.model.Region;
+import com.geog.model.Country;
+import com.geog.model.Region;
 
 @ManagedBean
 @SessionScoped
@@ -25,8 +25,8 @@ public class CityController {
 	private CountryDao countryDao;
 	private RegionDao regionDao;
 	private City city;
-//	private Region region;
-//	private Country country;
+	private Region region;
+	private Country country;
 	private String populationCriteria;
 	
 	
@@ -34,8 +34,8 @@ public class CityController {
 	
 //	Constructor
 	public CityController() {
-//		country = new Country();
-//		region = new Region();
+		country = new Country();
+		region = new Region();
 		city = new City();
 		
 		try {
@@ -94,21 +94,21 @@ public class CityController {
 		this.city = city;
 	}
 
-//	public Country getCountry() {
-//		return country;
-//	}
-//
-//	public void setCountry(Country country) {
-//		this.country = country;
-//	}
-//
-//	public Region getRegion() {
-//		return region;
-//	}
-//
-//	public void setRegion(Region region) {
-//		this.region = region;
-//	}
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
 
 	public String getPopulationCriteria() {
 		return populationCriteria;
@@ -134,12 +134,12 @@ public class CityController {
 	
 	public String showDetails(City city) {
 		this.city = city;
-//		try {
-//			setCountry(countryDao.searchCountry(city.getCo_code()));
-//			setRegion(regionDao.searchRegion(city.getReg_code()));
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} // try - catch
+		try {
+			setCountry(countryDao.searchCountry(city.getCo_code()));
+			setRegion(regionDao.searchRegion(city.getReg_code()));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} // try - catch
 
 		return "show_city_details.xhtml";
 		
