@@ -85,5 +85,26 @@ public class CountryDao {
 		return new Country(rs.getString("co_code"), rs.getString("co_name"), new StringBuilder(rs.getString("co_details")));
 		
 	} // searchCountry
+	
+	
+	public int add(Country country) throws SQLException {
+		int rs;
+		query.append("INSERT INTO country VALUES(?, ?, ?)");
+		
+		try {
+			PreparedStatement myStmt = conn.prepareStatement(query.toString());
+			myStmt.setString(1, country.getCode());
+			myStmt.setString(2, country.getName());
+			myStmt.setString(3, country.getDetails().toString());
+			rs = myStmt.executeUpdate();
+		} finally {
+			// Reset the StringBuilder		
+			query.setLength(0);
+			
+		} // try - finally
+		
+		return rs;
+		
+	} // add
 
 } // CountryDao

@@ -14,7 +14,7 @@
 			<section>
 				<fieldset>
 					<p>
-    					<label for="populationCriteria">
+    						<label for="populationCriteria">
        						<span>Population: </span>
 	      				</label>
 	      				<h:selectOneMenu id="populationCriteria" value="#{cityController.populationCriteria}">
@@ -26,15 +26,15 @@
 	    				</p>
 					<p>
 	      				<label for="countryCode">
-	        				<span>Country Code: </span>
+	        					<span>Country Code: </span>
 	      				</label>
 	      				<h:inputText id="countryCode" value="#{cityController.city.co_code}" />
 	    				</p>
 	    				<p>
-	    				<label for="course">
+	    					<label for="coastal">
        						<span>By the Sea: </span>
       					</label>
-	      				<h:selectOneMenu id="course" value="#{cityController.city.coastal}">
+	      				<h:selectOneMenu id="coastal" value="#{cityController.city.coastal}">
 	    						<f:selectItem itemValue="true" itemLabel="True" />
 	    						<f:selectItem itemValue="false" itemLabel="False" />
 						</h:selectOneMenu>

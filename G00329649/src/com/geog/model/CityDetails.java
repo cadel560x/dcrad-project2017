@@ -1,5 +1,6 @@
 package com.geog.model;
 
+// @ManagedBean annotation is inherited
 public class CityDetails extends City {
 //	Instance variables
 	private String countryName;

@@ -15,13 +15,14 @@ import com.geog.model.Country;
 public class CountryController {
 //	Instance variables
 	private List<Country> countries;
+	private CountryDao countryDao;
 	
 	
 	
 	
 //	Constructor
 	public CountryController() {
-		CountryDao countryDao;
+		
 		try {
 			countryDao = new CountryDao();
 			countries = countryDao.getCountries();
@@ -42,5 +43,20 @@ public class CountryController {
 	public void setCountries(List<Country> countries) {
 		this.countries = countries;
 	}
+	
+	
+	
+	
+//	Methods
+	public String add(Country country) {
+		try {
+			countryDao.add(country);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return "list_countries.xhtml";
+		
+	} // add
 	
 } // class CountryController

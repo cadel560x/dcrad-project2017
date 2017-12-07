@@ -38,7 +38,8 @@ public class CityController {
 	public CityController() {
 		country = new Country();
 		region = new Region();
-		city = new City();
+//		city = new City();
+//		cityDetails = new CityDetails();
 		
 		try {
 			cityDao = new CityDao();
@@ -142,29 +143,29 @@ public class CityController {
 	} // loadCities
 	
 	
-	public String showDetails(CityDetails city) {
-		setCityDetails(city);
-//		try {
-//			for(Country needle: countryDao.getCountries()) {
-//				if (city.getCo_code().equalsIgnoreCase(needle.getCode())) {
-//					// Set the 'Country' object of this 'CityController'
-//					setCountry(needle);
-//					break;
-//				}
-//			}
-//			
-//			for(Region needle: regionDao.getRegions()) {
-//				if (city.getReg_code().equalsIgnoreCase(needle.getCode())) {
-//					// Set the 'Country' object of this 'CityController'
-//					setRegion(needle);
-//					break;
-//				}
-//			}
+	public String showDetails(City city) {
+		setCity(city);
+		try {
+			for(Country needle: countryDao.getCountries()) {
+				if (city.getCo_code().equalsIgnoreCase(needle.getCode())) {
+					// Set the 'Country' object of this 'CityController'
+					setCountry(needle);
+					break;
+				}
+			}
+			
+			for(Region needle: regionDao.getRegions()) {
+				if (city.getReg_code().equalsIgnoreCase(needle.getCode())) {
+					// Set the 'Region' object of this 'CityController'
+					setRegion(needle);
+					break;
+				}
+			}
 //			setCountry(countryDao.searchCountry(city.getCo_code()));
 //			setRegion(regionDao.searchRegion(city.getReg_code()));
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} // try - catch
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} // try - catch
 
 		return "show_city_details.xhtml";
 		
