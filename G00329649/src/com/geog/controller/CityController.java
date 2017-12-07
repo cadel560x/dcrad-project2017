@@ -13,6 +13,7 @@ import com.geog.dao.CityDao;
 import com.geog.dao.CountryDao;
 import com.geog.dao.RegionDao;
 import com.geog.model.City;
+import com.geog.model.CityDetails;
 import com.geog.model.Country;
 import com.geog.model.Region;
 
@@ -20,14 +21,15 @@ import com.geog.model.Region;
 @SessionScoped
 public class CityController {
 //	Instance variables
-	private List<City> cities;
 	private CityDao cityDao;
 	private CountryDao countryDao;
 	private RegionDao regionDao;
 	private City city;
+	private CityDetails cityDetails;
 	private Region region;
 	private Country country;
 	private String populationCriteria;
+	private List<City> cities;
 	
 	
 	
@@ -62,25 +64,25 @@ public class CityController {
 		this.cities = cities;
 	}
 
-	public CountryDao getCountryDao() {
-		return countryDao;
-	}
+//	public CountryDao getCountryDao() {
+//		return countryDao;
+//	}
 
 //	public void setCountryDao(CountryDao countryDao) {
 //		this.countryDao = countryDao;
 //	}
 
-	public RegionDao getRegionDao() {
-		return regionDao;
-	}
+//	public RegionDao getRegionDao() {
+//		return regionDao;
+//	}
 
 //	public void setRegionDao(RegionDao regionDao) {
 //		this.regionDao = regionDao;
 //	}
 
-	public CityDao getCityDao() {
-		return cityDao;
-	}
+//	public CityDao getCityDao() {
+//		return cityDao;
+//	}
 
 //	public void setCityDao(CityDao cityDao) {
 //		this.cityDao = cityDao;
@@ -92,6 +94,14 @@ public class CityController {
 
 	public void setCity(City city) {
 		this.city = city;
+	}
+
+	public CityDetails getCityDetails() {
+		return cityDetails;
+	}
+
+	public void setCityDetails(CityDetails cityDetails) {
+		this.cityDetails = cityDetails;
 	}
 
 	public Country getCountry() {
@@ -132,14 +142,29 @@ public class CityController {
 	} // loadCities
 	
 	
-	public String showDetails(City city) {
-		this.city = city;
-		try {
-			setCountry(countryDao.searchCountry(city.getCo_code()));
-			setRegion(regionDao.searchRegion(city.getReg_code()));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} // try - catch
+	public String showDetails(CityDetails city) {
+		setCityDetails(city);
+//		try {
+//			for(Country needle: countryDao.getCountries()) {
+//				if (city.getCo_code().equalsIgnoreCase(needle.getCode())) {
+//					// Set the 'Country' object of this 'CityController'
+//					setCountry(needle);
+//					break;
+//				}
+//			}
+//			
+//			for(Region needle: regionDao.getRegions()) {
+//				if (city.getReg_code().equalsIgnoreCase(needle.getCode())) {
+//					// Set the 'Country' object of this 'CityController'
+//					setRegion(needle);
+//					break;
+//				}
+//			}
+//			setCountry(countryDao.searchCountry(city.getCo_code()));
+//			setRegion(regionDao.searchRegion(city.getReg_code()));
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} // try - catch
 
 		return "show_city_details.xhtml";
 		
@@ -155,6 +180,7 @@ public class CityController {
 			}
 			setCities(cityDao.searchCities(this.city, population, this.populationCriteria));
 			
+			// Show a message if no cities were found
 			if ( cities.size() == 0 ) {
 				FacesMessage message = new FacesMessage("No cities found.");
 				FacesContext.getCurrentInstance().addMessage(null, message);

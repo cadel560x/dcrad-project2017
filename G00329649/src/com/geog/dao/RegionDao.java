@@ -13,6 +13,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+//import com.geog.model.Country;
 import com.geog.model.Region;
 
 public class RegionDao {
@@ -22,6 +23,7 @@ public class RegionDao {
 	private Statement myStmt;
 	private StringBuilder query;
 	private ResultSet rs;
+	List<Region> regions;
 
 	
 	
@@ -35,6 +37,8 @@ public class RegionDao {
 	    myStmt = conn.createStatement();
 //	    Instantiate the StringBuffer
 	    query = new StringBuilder("");
+	    
+	    getRegions();
 	}
 	
 	
@@ -42,7 +46,7 @@ public class RegionDao {
 	
 //	Methods
 	public List<Region> getRegions() throws SQLException {
-		List<Region> regions;
+//		List<Region> regions;
 
 		query.append("SELECT * FROM region;");
 		

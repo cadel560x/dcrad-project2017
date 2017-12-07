@@ -22,6 +22,7 @@ public class CountryDao {
 	private Statement myStmt;
 	private StringBuilder query;
 	private ResultSet rs;
+	List<Country> countries;
 
 	
 	
@@ -35,6 +36,8 @@ public class CountryDao {
 	    myStmt = conn.createStatement();
 	    // Instantiate the StringBuffer
 	    query = new StringBuilder("");
+	    
+	    getCountries();
 	}
 	
 	
@@ -42,7 +45,7 @@ public class CountryDao {
 	
 //	Methods
 	public List<Country> getCountries() throws SQLException {
-		List<Country> countries;
+//		List<Country> countries;
 		
 		query.append("SELECT * FROM country;");
 		

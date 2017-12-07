@@ -14,6 +14,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.geog.model.City;
+import com.geog.model.CityDetails;
 
 public class CityDao {
 //	Instance variables
@@ -22,6 +23,7 @@ public class CityDao {
 	private Statement myStmt;
 	private StringBuilder query;
 	private ResultSet rs;
+	private List<City> cities;
 
 	
 	
@@ -35,38 +37,52 @@ public class CityDao {
 	    myStmt = conn.createStatement();
 //	    Instantiate the StringBuffer
 	    query = new StringBuilder("");
+	    
+	    getCities();
 	}
 	
 	
 	
-	
-//	Methods
+
+//	Accessors and mutators
 	public List<City> getCities() throws SQLException {
-		List<City> cities = new ArrayList<>();
+//		List<City> cities = new ArrayList<>();
+		cities = new ArrayList<>();
 		
-		query.append("SELECT * FROM city;");
+		query.append("SELECT cty.*, co.co_name AS 'co.co_name', reg.reg_name AS 'reg.reg_name' FROM city cty INNER JOIN country co ON cty.co_code = co.co_code INNER JOIN region reg ON cty.reg_code = reg.reg_code;");
 	    rs = myStmt.executeQuery(query.toString());
 
 	    while ( rs.next() ) {
-	    		cities.add(new City(rs.getString("cty_code"), rs.getString("cty_name"), rs.getInt("population"), rs.getBoolean("isCoastal"), rs.getDouble("areaKm"), rs.getString("co_code"), rs.getString("reg_code")));
+	    		cities.add(new CityDetails(rs.getString("cty_code"), rs.getString("cty_name"),
+	    				rs.getInt("population"), rs.getBoolean("isCoastal"),
+	    				rs.getDouble("areaKm"), rs.getString("co_code"),
+	    				rs.getString("reg_code"), rs.getString("co.co_name"), rs.getString("reg.reg_name")));
 	    } // while
 	    
-//	    Reset the StringBuilder
+	    // Reset the StringBuilder
 	    query.setLength(0);
 	    
 	    return cities;
 
 	} // getCities
-	
-	
+
+	public void setCities(List<City> cities) {
+		this.cities = cities;
+	}
+
+
+
+
+	//	Methods
+	// 'cityQueryObject' is a kinda hibernate paradigm
 	public List<City> searchCities(City cityQueryObject, String population, String populationCriteria) throws SQLException {
 		PreparedStatement myStmt;
 		int stmtIndex = 0;
 		List<City> cities = new ArrayList<>();
-		List<String> country_names = new ArrayList<>();
+//		List<String> country_names = new ArrayList<>();
 		String co_code = cityQueryObject.getCo_code();
 		
-		query.append("SELECT cty.*, co.co_name AS 'co.co_name' FROM city cty INNER JOIN country co ON cty.co_code = co.co_code WHERE isCoastal = ");
+		query.append("SELECT cty.*, co.co_name AS 'co.co_name', reg.reg_name AS 'reg.reg_name' FROM city cty INNER JOIN country co ON cty.co_code = co.co_code INNER JOIN region reg ON cty.reg_code = reg.reg_code WHERE isCoastal = ");
 		
 		if ( cityQueryObject.isCoastal() ) {
 			query.append("1");
@@ -76,7 +92,7 @@ public class CityDao {
 		}
 		
 		if ( ! co_code.equals("") ) {
-			query.append(" AND co_code = ?");
+			query.append(" AND cty.co_code = ?");
 		}
 		
 		if ( ! population.equals("") ) {
@@ -107,10 +123,10 @@ public class CityDao {
 			rs = myStmt.executeQuery();
 			
 			while (rs.next()) {
-				cities.add(new City(rs.getString("cty_code"), rs.getString("cty_name"), rs.getInt("population"),
+				cities.add(new CityDetails(rs.getString("cty_code"), rs.getString("cty_name"), rs.getInt("population"),
 						rs.getBoolean("isCoastal"), rs.getDouble("areaKm"), rs.getString("co_code"),
-						rs.getString("reg_code")));
-				country_names.add(rs.getString("co.co_name"));
+						rs.getString("reg_code"), rs.getString("co.co_name"), rs.getString("reg.reg_name")));
+//				country_names.add(rs.getString("co.co_name"));
 			} // while
 		} finally {
 			// Reset the StringBuilder
