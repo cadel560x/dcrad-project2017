@@ -12,8 +12,8 @@
 		<dl>
 			<dt>City Code: </dt><dd>#{cityController.city.code}</dd>
 			<dt>City Name: </dt><dd>#{cityController.city.name}</dd>
-			<dt>Country: </dt><dd>#{cityController.country.name}</dd>
-			<dt>Region: </dt><dd>#{cityController.region.name}</dd>
+			<dt>Country: </dt><dd>#{cityController.countryDao.searchCountry(cityController.city.co_code).name}</dd>
+			<dt>Region: </dt><dd>#{cityController.regionDao.searchRegion(cityController.city.reg_code).name}</dd>
 			<dt>City Population: </dt><dd>#{cityController.city.population}</dd>
 			<dt>By the Sea: </dt><dd>#{cityController.city.coastal}</dd>
 			<dt>Area (Square Km): </dt><dd>#{cityController.city.area}</dd>

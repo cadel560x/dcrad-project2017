@@ -19,7 +19,7 @@ public class RegionController {
 	
 	
 	
-//	Contructor
+//	Constructor
 	public RegionController() {
 		RegionDao regionDao;
 		try {

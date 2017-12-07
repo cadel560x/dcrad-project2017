@@ -8,6 +8,7 @@
 		<title>Search Results</title>
 	</h:head>
 	<h:body>
+		<h:messages globalOnly="true" styleClass="error"/>
 		<h:form>
 			<h:dataTable value = "#{cityController.cities}" var="city"
 	   			styleClass="cityTable"
@@ -27,7 +28,7 @@
 				</h:column>
 				<h:column>
 				      <f:facet name="header">Region</f:facet>
-				      #{city.reg_code}
+				      #{cityController.regionDao.searchRegion(city.reg_code).name}
 				</h:column>
 			    <h:column>
 			          <f:facet name="header">City Population</f:facet>
