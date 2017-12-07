@@ -63,9 +63,10 @@ public class CityDao {
 		PreparedStatement myStmt;
 		int stmtIndex = 0;
 		List<City> cities = new ArrayList<>();
+		List<String> country_names = new ArrayList<>();
 		String co_code = cityQueryObject.getCo_code();
 		
-		query.append("SELECT * FROM city WHERE isCoastal = ");
+		query.append("SELECT cty.*, co.co_name AS 'co.co_name' FROM city cty INNER JOIN country co ON cty.co_code = co.co_code WHERE isCoastal = ");
 		
 		if ( cityQueryObject.isCoastal() ) {
 			query.append("1");
@@ -109,6 +110,7 @@ public class CityDao {
 				cities.add(new City(rs.getString("cty_code"), rs.getString("cty_name"), rs.getInt("population"),
 						rs.getBoolean("isCoastal"), rs.getDouble("areaKm"), rs.getString("co_code"),
 						rs.getString("reg_code")));
+				country_names.add(rs.getString("co.co_name"));
 			} // while
 		} finally {
 			// Reset the StringBuilder
