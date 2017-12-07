@@ -5,29 +5,36 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	<h:head>
 		<meta charset="UTF-8" />
+		<f:event type="preRenderView" listener="#{countryController.loadCountries}" />
 		<title>List Countries</title>
 	</h:head>
 	<body>
 		<h:form>
-      		<h:commandButton value="Add Country" action="add"/>
-   		</h:form>
-		<h:dataTable value = "#{countryController.countries}" var="country"
-   			styleClass="countryTable"
-   			headerClass="countryTableHeader"
-   			rowClasses="countryTableOddRow,countryTableEvenRow">   
-			<h:column>    				
-			      <f:facet name="header">Country Code</f:facet>    				
-			      #{country.code}
-			</h:column>
-		    <h:column>
-		          <f:facet name="header">Country Name</f:facet>
-		          #{country.name}
-		    </h:column>
-		    <h:column>
-		          <f:facet name="header">Country Details</f:facet>
-		          #{country.details}
-		    </h:column>
-		</h:dataTable>
+      		<h:commandButton value="Add Country" action="add_country"/>
+			<h:dataTable value = "#{countryController.countries}" var="country"
+	   			styleClass="countryTable"
+	   			headerClass="countryTableHeader"
+	   			rowClasses="countryTableOddRow,countryTableEvenRow">   
+				<h:column>    				
+				      <f:facet name="header">Country Code</f:facet>    				
+				      #{country.code}
+				</h:column>
+			    <h:column>
+			          <f:facet name="header">Country Name</f:facet>
+			          #{country.name}
+			    </h:column>
+			    <h:column>
+			          <f:facet name="header">Country Details</f:facet>
+			          #{country.details}
+			    </h:column>
+			    <h:column>
+				      <f:facet name="header">Action</f:facet>
+				      <h:commandLink value="Update" action="#{countryController.update(country)}" />
+				      <br />
+				      <h:commandLink value="Delete" action="#{countryController.delete(country)}" />
+				</h:column>
+			</h:dataTable>
+		</h:form>
 		<h:link value="Home" outcome="index"/>
 	</body>
 </html>

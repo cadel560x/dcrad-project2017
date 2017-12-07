@@ -8,6 +8,7 @@
 		<title>Add Country</title>
 	</h:head>
 	<h:body>
+		<h:messages globalOnly="true" styleClass="error"/>
 		<h:form>
 			<h2>Add Country</h2>
 			<section>
@@ -16,20 +17,22 @@
 	      				<label for="countryCode">
 	        					<span>Code: </span>
 	      				</label>
-	      				<h:inputText id="countryCode" value="#{cityController.city.co_code}" />
-	    				</p>
-	    				<p>
+	      				<h:inputText id="countryCode" value="#{country.code}" required="true" />
+	      				<h:messages for="countryCode" styleClass="error"/>
+	    			</p>
+	    			<p>
 	      				<label for="countryName">
 	        					<span>Name: </span>
 	      				</label>
-	      				<h:inputText id="countryName" value="#{cityController.city.co_code}" />
-	    				</p>
-	    				<p>
+	      				<h:inputText id="countryName" value="#{country.name}" required="true" />
+	      				<h:messages for="countryName" styleClass="error"/>
+	    			</p>
+	    			<p>
 	      				<label for="countryDetails">
 	        					<span>Details: </span>
 	      				</label>
-	      				<h:inputText id="countryDetails" value="#{cityController.city.co_code}" />
-	    				</p>
+	      				<h:inputText id="countryDetails" value="#{country.details}" maxlength="400" />
+	    			</p>
 				</fieldset>
 			</section>
 			<section>

@@ -55,7 +55,7 @@ public class CountryDao {
 			
 			while (rs.next()) {
 				countries.add(new Country(rs.getString("co_code"), rs.getString("co_name"),
-						new StringBuilder(rs.getString("co_details"))));
+						rs.getString("co_details")));
 			} // while
 		} finally {
 			// Reset the StringBuilder
@@ -82,7 +82,7 @@ public class CountryDao {
 			
 		} // try - finally
 		
-		return new Country(rs.getString("co_code"), rs.getString("co_name"), new StringBuilder(rs.getString("co_details")));
+		return new Country(rs.getString("co_code"), rs.getString("co_name"), rs.getString("co_details"));
 		
 	} // searchCountry
 	
@@ -95,7 +95,13 @@ public class CountryDao {
 			PreparedStatement myStmt = conn.prepareStatement(query.toString());
 			myStmt.setString(1, country.getCode());
 			myStmt.setString(2, country.getName());
-			myStmt.setString(3, country.getDetails().toString());
+//			if ( country.getDetails().length() > 399 ) {
+//				myStmt.setString(3, country.getDetails().substring(0, 399));
+//			}
+//			else {
+//				myStmt.setString(3, country.getDetails());
+//			}
+			myStmt.setString(3, country.getDetails());
 			rs = myStmt.executeUpdate();
 		} finally {
 			// Reset the StringBuilder		
@@ -106,5 +112,32 @@ public class CountryDao {
 		return rs;
 		
 	} // add
+	
+	
+	public int update(Country country) throws SQLException {
+		int rs;
+		query.append("UPDATE country SET co_name = ?, co_details = ? WHERE co_code = ?");
+		
+		try {
+			PreparedStatement myStmt = conn.prepareStatement(query.toString());
+			myStmt.setString(3, country.getCode());
+			myStmt.setString(1, country.getName());
+//			if ( country.getDetails().length() > 399 ) {
+//				myStmt.setString(3, country.getDetails().substring(0, 399));
+//			}
+//			else {
+//				myStmt.setString(3, country.getDetails());
+//			}
+			myStmt.setString(2, country.getDetails());
+			rs = myStmt.executeUpdate();
+		} finally {
+			// Reset the StringBuilder		
+			query.setLength(0);
+			
+		} // try - finally
+		
+		return rs;
+		
+	} // update
 
 } // CountryDao

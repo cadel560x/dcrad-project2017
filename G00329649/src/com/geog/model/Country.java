@@ -7,7 +7,7 @@ public class Country {
 //	Instance variables
 	private String code;
 	private String name;
-	private StringBuilder details;
+	private String details;
 	
 	
 	
@@ -16,7 +16,7 @@ public class Country {
 	public Country() {
 	}
 
-	public Country(String code, String name, StringBuilder details) {
+	public Country(String code, String name, String details) {
 		this.code = code;
 		this.name = name;
 		this.details = details;
@@ -42,12 +42,13 @@ public class Country {
 		this.name = name;
 	}
 
-	public StringBuilder getDetails() {
+	public String getDetails() {
 		return details;
 	}
 
-	public void setDetails(StringBuilder details) {
+	public void setDetails(String details) {
 		this.details = details;
 	}
+	
 
 } // class Country
