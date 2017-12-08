@@ -9,6 +9,7 @@
 		<title>List Countries</title>
 	</h:head>
 	<body>
+		<h:messages globalOnly="true" styleClass="error"/>
 		<h:form>
       		<h:commandButton value="Add Country" action="add_country"/>
 			<h:dataTable value = "#{countryController.countries}" var="country"
@@ -31,7 +32,9 @@
 				      <f:facet name="header">Action</f:facet>
 				      <h:commandLink value="Update" action="#{countryController.update(country)}" />
 				      <br />
-				      <h:commandLink value="Delete" action="#{countryController.delete(country)}" />
+				      <h:commandLink value="Delete"
+				      onclick="if ( ! confirm('Are you sure you want to delete the current record?') ) return false"
+				      action="#{countryController.delete(country)}" />
 				</h:column>
 			</h:dataTable>
 		</h:form>

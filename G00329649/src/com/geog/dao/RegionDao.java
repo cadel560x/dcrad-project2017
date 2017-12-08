@@ -56,7 +56,7 @@ public class RegionDao {
 			
 			while (rs.next()) {
 				regions.add(new Region(rs.getString("reg_code"), rs.getString("reg_name"),
-						new StringBuilder(rs.getString("reg_desc")), rs.getString("co_code")));
+						rs.getString("reg_desc"), rs.getString("co_code")));
 			} // while
 		} finally {
 			// Reset the StringBuilder
@@ -83,7 +83,7 @@ public class RegionDao {
 			
 		} // try - finally
 		
-		return new Region(rs.getString("reg_code"), rs.getString("reg_name"), new StringBuilder(rs.getString("reg_desc")), rs.getString("co_code"));
+		return new Region(rs.getString("reg_code"), rs.getString("reg_name"), rs.getString("reg_desc"), rs.getString("co_code"));
 		
 	} // getRegion	
 	

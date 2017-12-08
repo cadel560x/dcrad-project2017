@@ -45,8 +45,6 @@ public class CountryDao {
 	
 //	Methods
 	public List<Country> getCountries() throws SQLException {
-//		List<Country> countries;
-		
 		query.append("SELECT * FROM country;");
 		
 	    try {
@@ -94,15 +92,11 @@ public class CountryDao {
 		
 		try {
 			PreparedStatement myStmt = conn.prepareStatement(query.toString());
+			
 			myStmt.setString(1, countryAddObject.getCode());
 			myStmt.setString(2, countryAddObject.getName());
-//			if ( country.getDetails().length() > 399 ) {
-//				myStmt.setString(3, country.getDetails().substring(0, 399));
-//			}
-//			else {
-//				myStmt.setString(3, country.getDetails());
-//			}
 			myStmt.setString(3, countryAddObject.getDetails());
+			
 			rs = myStmt.executeUpdate();
 		} finally {
 			// Reset the StringBuilder		
@@ -122,15 +116,11 @@ public class CountryDao {
 		
 		try {
 			PreparedStatement myStmt = conn.prepareStatement(query.toString());
+			
 			myStmt.setString(3, countryUpdateObject.getCode());
 			myStmt.setString(1, countryUpdateObject.getName());
-//			if ( country.getDetails().length() > 399 ) {
-//				myStmt.setString(3, country.getDetails().substring(0, 399));
-//			}
-//			else {
-//				myStmt.setString(3, country.getDetails());
-//			}
 			myStmt.setString(2, countryUpdateObject.getDetails());
+			
 			rs = myStmt.executeUpdate();
 		} finally {
 			// Reset the StringBuilder		
@@ -141,5 +131,27 @@ public class CountryDao {
 		return rs;
 		
 	} // update
+	
+	
+	// 'countryUpdateObject' is a kinda hibernate paradigm
+	public int delete(Country countryUpdateObject) throws SQLException {
+		int rs;
+		query.append("DELETE FROM country WHERE co_code = ?");
+		
+		try {
+			PreparedStatement myStmt = conn.prepareStatement(query.toString());
+			
+			myStmt.setString(1, countryUpdateObject.getCode());
 
-} // CountryDao
+			rs = myStmt.executeUpdate();
+		} finally {
+			// Reset the StringBuilder		
+			query.setLength(0);
+			
+		} // try - finally
+		
+		return rs;
+		
+	} // delete
+
+} // class CountryDao

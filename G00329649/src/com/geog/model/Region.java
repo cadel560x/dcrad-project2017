@@ -7,7 +7,7 @@ public class Region {
 //	Instance variables	
 	private String code;
 	private String name;
-	private StringBuilder desc;
+	private String desc;
 	private String co_code;
 	
 	
@@ -17,7 +17,7 @@ public class Region {
 	public Region() {
 	}
 	
-	public Region(String code, String name, StringBuilder desc, String co_code) {
+	public Region(String code, String name, String desc, String co_code) {
 		this.code = code;
 		this.name = name;
 		this.desc = desc;
@@ -28,7 +28,7 @@ public class Region {
 	
 	
 
-	//	Accessors and mutators
+//	Accessors and mutators
 	public String getCode() {
 		return code;
 	}
@@ -45,11 +45,11 @@ public class Region {
 		this.name = name;
 	}
 	
-	public StringBuilder getDesc() {
+	public String getDesc() {
 		return desc;
 	}
 	
-	public void setDesc(StringBuilder desc) {
+	public void setDesc(String desc) {
 		this.desc = desc;
 	}
 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:head>
+		<meta charset="UTF-8" />
+		<title>Add Region</title>
+	</h:head>
+	<h:body>
+		<h:messages globalOnly="true" styleClass="error"/>
+		<h:form>
+			<h2>Add Region</h2>
+			<section>
+				<fieldset>
+					<p>
+	      				<label for="regionCode">
+	        					<span>Region Code: </span>
+	      				</label>
+	      				<h:inputText id="regionCode" value="#{region.code}" required="true" />
+	      				<h:messages for="regionCode" styleClass="error"/>
+	    			</p>
+	    			<p>
+	      				<label for="regionName">
+	        					<span>Name: </span>
+	      				</label>
+	      				<h:inputText id="regionName" value="#{region.name}" required="true" />
+	      				<h:messages for="regionName" styleClass="error"/>
+	    			</p>
+	    			<p>
+	      				<label for="regionDescription">
+	        					<span>Description: </span>
+	      				</label>
+	      				<h:inputText id="regionDescription" value="#{region.desc}" maxlength="400" />
+	    			</p>
+				</fieldset>
+			</section>
+			<section>
+				<p>
+					<h:commandButton value="Add" action="#{regionController.add(region)}" />
+				</p>
+			</section>
+		</h:form>
+		<h:link value="Home" outcome="index"/> <h:link value="Regions" outcome="list_regions"/>
+	</h:body>
+</html>

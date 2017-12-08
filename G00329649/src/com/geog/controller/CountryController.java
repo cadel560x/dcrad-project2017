@@ -119,4 +119,22 @@ public class CountryController {
 		
 	} // update
 	
+	
+	public String delete(Country country) {
+		try {
+			countryDao.delete(country);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			errMessage = e.getMessage();
+		}
+		finally {
+			if (errMessage.length() != 0 ) {
+				FacesMessage message = new FacesMessage(errMessage);
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			}
+		} // try - catch - finally
+		
+		return "list_countries.xhtml";
+	}
+	
 } // class CountryController
