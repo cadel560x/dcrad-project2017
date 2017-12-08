@@ -28,6 +28,7 @@ public class CountryController {
 	public CountryController() {
 		try {
 			countryDao = new CountryDao();
+			
 			countries = countryDao.getCountries();
 			errMessage = "";
 		} catch (NamingException | SQLException e) {

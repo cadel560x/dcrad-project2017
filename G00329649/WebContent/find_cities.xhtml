@@ -14,31 +14,31 @@
 			<section>
 				<fieldset>
 					<p>
-    						<label for="populationCriteria">
+    					<label for="populationCriteria">
        						<span>Population: </span>
 	      				</label>
 	      				<h:selectOneMenu id="populationCriteria" value="#{cityController.populationCriteria}">
-	    						<f:selectItem itemValue="lt" itemLabel="Less Than" />
-	    						<f:selectItem itemValue="gt" itemLabel="Greater Than" />
-	    						<f:selectItem itemValue="eq" itemLabel="Equal To" />
+	    					<f:selectItem itemValue="lt" itemLabel="Less Than" />
+	    					<f:selectItem itemValue="gt" itemLabel="Greater Than" />
+	    					<f:selectItem itemValue="eq" itemLabel="Equal To" />
 						</h:selectOneMenu>
 						<h:inputText id="population" binding="#{input1}" />
-	    				</p>
+	    			</p>
 					<p>
 	      				<label for="countryCode">
-	        					<span>Country Code: </span>
+	        				<span>Country Code: </span>
 	      				</label>
 	      				<h:inputText id="countryCode" value="#{cityController.city.co_code}" />
-	    				</p>
-	    				<p>
-	    					<label for="coastal">
+	    			</p>
+	    			<p>
+	    				<label for="coastal">
        						<span>By the Sea: </span>
       					</label>
 	      				<h:selectOneMenu id="coastal" value="#{cityController.city.coastal}">
-	    						<f:selectItem itemValue="true" itemLabel="True" />
-	    						<f:selectItem itemValue="false" itemLabel="False" />
+	    					<f:selectItem itemValue="true" itemLabel="True" />
+	    					<f:selectItem itemValue="false" itemLabel="False" />
 						</h:selectOneMenu>
-	    				</p>
+	    			</p>
 				</fieldset>
 			</section>
 			<section>

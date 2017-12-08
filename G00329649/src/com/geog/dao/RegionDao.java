@@ -86,5 +86,30 @@ public class RegionDao {
 		return new Region(rs.getString("reg_code"), rs.getString("reg_name"), rs.getString("reg_desc"), rs.getString("co_code"));
 		
 	} // getRegion	
+
+
+
+
+	public int add(Region regionAddObject) throws SQLException {
+		int rs;
+		query.append("INSERT INTO region VALUES(?, ?, ?, ?)");
+		
+		try {
+			PreparedStatement myStmt = conn.prepareStatement(query.toString());
+			
+			myStmt.setString(1, regionAddObject.getCo_code());
+			myStmt.setString(2, regionAddObject.getCode());
+			myStmt.setString(3, regionAddObject.getName());
+			myStmt.setString(4, regionAddObject.getDesc());
+			
+			rs = myStmt.executeUpdate();
+		} finally {
+			// Reset the StringBuilder		
+			query.setLength(0);
+			
+		} // try - finally
+		
+		return rs;
+	}
 	
 } // class RegionDao

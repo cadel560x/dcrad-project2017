@@ -6,6 +6,7 @@
 	<h:head>
 		<meta charset="ISO-8859-1" />
 		<title>List Regions</title>
+		<f:event type="preRenderView" listener="#{regionController.loadRegions}" />
 	</h:head>
 	<body>
 		<h:form>
