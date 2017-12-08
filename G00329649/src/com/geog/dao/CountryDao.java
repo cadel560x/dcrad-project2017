@@ -87,21 +87,22 @@ public class CountryDao {
 	} // searchCountry
 	
 	
-	public int add(Country country) throws SQLException {
+	// 'countryAddObject' is a kinda hibernate paradigm
+	public int add(Country countryAddObject) throws SQLException {
 		int rs;
 		query.append("INSERT INTO country VALUES(?, ?, ?)");
 		
 		try {
 			PreparedStatement myStmt = conn.prepareStatement(query.toString());
-			myStmt.setString(1, country.getCode());
-			myStmt.setString(2, country.getName());
+			myStmt.setString(1, countryAddObject.getCode());
+			myStmt.setString(2, countryAddObject.getName());
 //			if ( country.getDetails().length() > 399 ) {
 //				myStmt.setString(3, country.getDetails().substring(0, 399));
 //			}
 //			else {
 //				myStmt.setString(3, country.getDetails());
 //			}
-			myStmt.setString(3, country.getDetails());
+			myStmt.setString(3, countryAddObject.getDetails());
 			rs = myStmt.executeUpdate();
 		} finally {
 			// Reset the StringBuilder		
@@ -114,21 +115,22 @@ public class CountryDao {
 	} // add
 	
 	
-	public int update(Country country) throws SQLException {
+	// 'countryUpdateObject' is a kinda hibernate paradigm
+	public int update(Country countryUpdateObject) throws SQLException {
 		int rs;
 		query.append("UPDATE country SET co_name = ?, co_details = ? WHERE co_code = ?");
 		
 		try {
 			PreparedStatement myStmt = conn.prepareStatement(query.toString());
-			myStmt.setString(3, country.getCode());
-			myStmt.setString(1, country.getName());
+			myStmt.setString(3, countryUpdateObject.getCode());
+			myStmt.setString(1, countryUpdateObject.getName());
 //			if ( country.getDetails().length() > 399 ) {
 //				myStmt.setString(3, country.getDetails().substring(0, 399));
 //			}
 //			else {
 //				myStmt.setString(3, country.getDetails());
 //			}
-			myStmt.setString(2, country.getDetails());
+			myStmt.setString(2, countryUpdateObject.getDetails());
 			rs = myStmt.executeUpdate();
 		} finally {
 			// Reset the StringBuilder		
