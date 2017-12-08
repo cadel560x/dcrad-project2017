@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:head>
+		<meta charset="UTF-8" />
+		<title>Add City</title>
+		<f:event type="preRenderView" listener="#{cityController.load}" />
+	</h:head>
+	<h:body>
+		<h:messages globalOnly="true" styleClass="error"/>
+		<h:form>
+			<h2>Add City</h2>
+			<section>
+				<fieldset>
+					<p>
+	      				<label for="cityCode">
+	        				<span>City Code: </span>
+	      				</label>
+	      				<h:inputText id="cityCode" value="#{cityController.city.code}" required="true" />
+	      				<h:messages for="cityCode" styleClass="error"/>
+	    			</p>
+					<p>
+    					<label for="countryCodes">
+       						<span>Country Code: </span>
+	      				</label>
+	      				
+	      				<!-- Displaying a list of existing countries in a drop-down box, so there are no invalid country codes when adding regions -->
+	      				<h:selectOneMenu id="countryCodes" value="#{cityController.city.co_code}">
+	    					<f:selectItems value="#{cityController.countries}" var="country" itemValue="#{country.code}" itemLabel="#{country.name}" />
+	    					
+	    					<!-- Ajax call to dynamically load the regions that belong the selected country -->
+	    					<f:ajax listener="#{cityController.changeRegion}" event="valueChange" render="regionCodes" execute="@this" />
+						</h:selectOneMenu>
+	    			</p>
+	    			<p>
+    					<label for="regionCodes">
+       						<span>Region Code: </span>
+	      				</label>
+	      				
+	      				<!-- Displaying a list of existing regions in a drop-down box, so there are no invalid region codes when adding regions -->
+	      				<!-- Ajax target to dynamically load the regions that belong the selected country -->
+	      				<h:selectOneMenu id="regionCodes" value="#{cityController.city.reg_code}">
+	    					<f:selectItems value="#{cityController.availableRegions}" var="region" itemValue="#{region.code}" itemLabel="#{region.name}" />
+						</h:selectOneMenu>
+	    			</p>
+	    			<p>
+	      				<label for="cityName">
+	        				<span>Name: </span>
+	      				</label>
+	      				<h:inputText id="cityName" value="#{cityController.city.name}" required="true" />
+	      				<h:messages for="cityName" styleClass="error"/>
+	    			</p>
+	    			<p>
+	      				<label for="cityPopulation">
+	        				<span>Population: </span>
+	      				</label>
+	      				<h:inputText id="cityPopulation" value="#{cityController.city.population}" />
+	    			</p>
+	    			<p>
+	    				<label for="coastal">
+       						<span>By the Sea: </span>
+      					</label>
+	      				<h:selectOneMenu id="coastal" value="#{cityController.city.coastal}">
+	    					<f:selectItem itemValue="true" itemLabel="True" />
+	    					<f:selectItem itemValue="false" itemLabel="False" />
+						</h:selectOneMenu>
+	    			</p>
+	    			<p>
+	      				<label for="cityArea">
+	        				<span>Area (KM): </span>
+	      				</label>
+	      				<h:inputText id="cityArea" value="#{cityController.city.area}" />
+	    			</p>
+				</fieldset>
+			</section>
+			<section>
+				<p>
+					<h:commandButton value="Add" action="#{cityController.add(cityController.city)}" />
+				</p>
+			</section>
+		</h:form>
+		<h:link value="Home" outcome="index"/> <h:link value="Cities" outcome="list_cities"/>
+	</h:body>
+</html>

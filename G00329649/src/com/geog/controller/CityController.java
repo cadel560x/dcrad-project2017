@@ -1,12 +1,14 @@
 package com.geog.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.naming.NamingException;
 
 import com.geog.dao.CityDao;
@@ -30,6 +32,10 @@ public class CityController {
 	private Country country;
 	private String populationCriteria;
 	private List<City> cities;
+	private List<Region> regions;
+	private List<Region> availableRegions;
+	private List<Country> countries;
+	private String errMessage;
 	
 	
 	
@@ -38,15 +44,17 @@ public class CityController {
 	public CityController() {
 		country = new Country();
 		region = new Region();
-//		city = new City();
+		city = new City();
 //		cityDetails = new CityDetails();
 		
 		try {
 			cityDao = new CityDao();
-			countryDao = new CountryDao();
 			regionDao =  new RegionDao();
+			countryDao = new CountryDao();
 			
-//			cities = cityDao.getCities();
+			cities = cityDao.getCities();
+			regions = regionDao.getRegions();
+			countries = countryDao.getCountries();
 		} catch (NamingException | SQLException e) {
 			e.printStackTrace();
 		} // try - catch
@@ -65,29 +73,29 @@ public class CityController {
 		this.cities = cities;
 	}
 
-//	public CountryDao getCountryDao() {
-//		return countryDao;
-//	}
+	public List<Region> getRegions() {
+		return regions;
+	}
+	
+	public void setRegions(List<Region> regions) {
+		this.regions = regions;
+	}
 
-//	public void setCountryDao(CountryDao countryDao) {
-//		this.countryDao = countryDao;
-//	}
+	public List<Region> getAvailableRegions() {
+		return availableRegions;
+	}
 
-//	public RegionDao getRegionDao() {
-//		return regionDao;
-//	}
+	public void setAvailableRegions(List<Region> availableRegions) {
+		this.availableRegions = availableRegions;
+	}
 
-//	public void setRegionDao(RegionDao regionDao) {
-//		this.regionDao = regionDao;
-//	}
+	public List<Country> getCountries() {
+		return countries;
+	}
 
-//	public CityDao getCityDao() {
-//		return cityDao;
-//	}
-
-//	public void setCityDao(CityDao cityDao) {
-//		this.cityDao = cityDao;
-//	}
+	public void setCountries(List<Country> countries) {
+		this.countries = countries;
+	}
 
 	public City getCity() {
 		return city;
@@ -129,10 +137,33 @@ public class CityController {
 		this.populationCriteria = populationCriteria;
 	}
 
+	public String getErrMessage() {
+		return errMessage;
+	}
+
+	public void setErrMessage(String errMessage) {
+		this.errMessage = errMessage;
+	}
+
 
 
 
 //	Methods
+	public void load() {
+		loadCities();
+		loadRegions();
+		loadCountries();
+		city = new City();
+		
+//		try {
+//			setAvailableRegions(regionDao.listRegions(countries.get(0).getCode()));
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+		
+	} // load
+	
+	
 	public void loadCities() {
 		try {
 			setCities(cityDao.getCities());
@@ -142,6 +173,24 @@ public class CityController {
 		
 	} // loadCities
 	
+	
+	public void loadRegions() {
+		try {
+			setRegions(regionDao.getRegions());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	} // loadRegions
+	
+	public void loadCountries() {
+		try {
+			setCountries(countryDao.getCountries());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	} // loadCountries
 	
 	public String showDetails(City city) {
 		setCity(city);
@@ -201,5 +250,15 @@ public class CityController {
 		this.setPopulationCriteria("lt");
 		
 	} // resetSearch
+	
+	
+	public void changeRegion(AjaxBehaviorEvent event) {
+        try {
+			setAvailableRegions(regionDao.listRegions(city.getCo_code()));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+    } // changeCountry
 	
 } // class CityController

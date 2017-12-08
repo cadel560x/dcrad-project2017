@@ -25,9 +25,14 @@ public class Region {
 		this.co_code = co_code;
 	}
 
+	public Region(String code, String name) {
+		this.code = code;
+		this.name = name;
+	}
 	
 	
-
+	
+	
 //	Accessors and mutators
 	public String getCode() {
 		return code;

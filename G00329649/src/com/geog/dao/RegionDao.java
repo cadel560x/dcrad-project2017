@@ -46,8 +46,6 @@ public class RegionDao {
 	
 //	Methods
 	public List<Region> getRegions() throws SQLException {
-//		List<Region> regions;
-
 		query.append("SELECT * FROM region;");
 		
 	    try {
@@ -88,8 +86,6 @@ public class RegionDao {
 	} // getRegion	
 
 
-
-
 	public int add(Region regionAddObject) throws SQLException {
 		int rs;
 		query.append("INSERT INTO region VALUES(?, ?, ?, ?)");
@@ -111,5 +107,30 @@ public class RegionDao {
 		
 		return rs;
 	}
+
+
+	public List<Region> listRegions(String co_code) throws SQLException {
+		query.append("SELECT reg_code, reg_name FROM region WHERE co_code = ?");
+		
+	    try {
+	    	PreparedStatement myStmt = conn.prepareStatement(query.toString());
+	    	
+	    	myStmt.setString(1, co_code);
+	    	
+			rs = myStmt.executeQuery();
+			regions = new ArrayList<>();
+			
+			while (rs.next()) {
+				regions.add(new Region(rs.getString("reg_code"), rs.getString("reg_name")));
+			} // while
+		} finally {
+			// Reset the StringBuilder
+		    query.setLength(0);
+		    
+		} // try - finally
+		
+		return regions;
+		
+	} // listRegions
 	
 } // class RegionDao

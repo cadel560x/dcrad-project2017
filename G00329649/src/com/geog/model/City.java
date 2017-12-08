@@ -19,6 +19,7 @@ public class City {
 	
 //	Constructors
 	public City() {
+		coastal = true;
 	}
 	
 	public City(String code, String name, int population, boolean coastal, double area, String co_code, String reg_code) {

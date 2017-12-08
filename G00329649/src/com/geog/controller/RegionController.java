@@ -22,7 +22,6 @@ public class RegionController {
 	private RegionDao regionDao;
 	private CountryDao countryDao;
 	private List<Country> countries;
-	private String countryCode;
 	private String errMessage;
 	
 	
@@ -61,24 +60,10 @@ public class RegionController {
 		this.countries = countries;
 	}
 	
-	public String getCountryCode() {
-		return countryCode;
-	}
-
-	public void setCountryCode(String contryCode) {
-		this.countryCode = contryCode;
-	}
-	
 	
 	
 	
 //	Methods
-//	public void load() {
-//		loadRegions();
-//		loadCountries();
-//	}
-	
-
 	public void loadRegions() {
 		try {
 			setRegions(regionDao.getRegions());
