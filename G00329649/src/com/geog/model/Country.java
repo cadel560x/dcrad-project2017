@@ -50,5 +50,4 @@ public class Country {
 		this.details = details;
 	}
 	
-
 } // class Country

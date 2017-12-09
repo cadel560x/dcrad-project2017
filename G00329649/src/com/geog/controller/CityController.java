@@ -225,6 +225,7 @@ public class CityController {
 		
 	} // add
 	
+	
 	public String showDetails(City city) {
 		setCity(city);
 		try {
