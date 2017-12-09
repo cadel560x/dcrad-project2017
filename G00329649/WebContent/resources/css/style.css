@@ -23,3 +23,7 @@
 	background:none repeat scroll 0 0 #EAEFF7;
 	text-align:left;
 }
+
+.error {
+	color: red;
+}

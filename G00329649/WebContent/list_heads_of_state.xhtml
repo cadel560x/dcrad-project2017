@@ -5,17 +5,18 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	<h:head>
 		<meta charset="UTF-8" />
-		<f:event type="preRenderView" listener="#{headOfStateController.load}" />
 		<title>List Countries</title>
+		<f:event type="preRenderView" listener="#{headOfStateController.load}" />
+		<h:outputStylesheet library="css" name="style.css"  />
 	</h:head>
 	<body>
 		<h:messages globalOnly="true" styleClass="error"/>
 		<h:form>
       		<h:commandButton value="Add Head of State" action="add_head_of_state"/>
 			<h:dataTable value = "#{headOfStateController.headsOfState}" var="headOfState"
-	   			styleClass="headOfStateTable"
-	   			headerClass="headOfStateTableHeader"
-	   			rowClasses="headOfStateTableOddRow,headOfStateTableEvenRow">
+	   			styleClass="table"
+	   			headerClass="table-header"
+	   			rowClasses="table-odd-row,table-even-row">
 				<h:column>    				
 				      <f:facet name="header">Country Code</f:facet>	
 				      #{headOfState._id}

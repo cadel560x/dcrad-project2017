@@ -6,14 +6,15 @@
 	<h:head>
 		<meta charset="UTF-8" />
 		<title>Search Results</title>
+		<h:outputStylesheet library="css" name="style.css"  />
 	</h:head>
 	<h:body>
 		<h:messages globalOnly="true" styleClass="error"/>
 		<h:form>
 			<h:dataTable value = "#{cityController.cities}" var="cityDetails"
-	   			styleClass="cityTable"
-	   			headerClass="cityTableHeader"
-	   			rowClasses="cityTableOddRow,cityTableEvenRow">
+	   			styleClass="table"
+	   			headerClass="table-header"
+	   			rowClasses="table-odd-row,table-even-row">
 	   			<h:column>    				
 				      <f:facet name="header">City Code</f:facet>
 				      #{cityDetails.code}
