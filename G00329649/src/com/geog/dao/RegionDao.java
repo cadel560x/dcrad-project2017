@@ -106,7 +106,7 @@ public class RegionDao {
 		} // try - finally
 		
 		return rs;
-	}
+	} // add
 
 
 	public List<Region> listRegions(String co_code) throws SQLException {

@@ -55,6 +55,7 @@ public class CityController {
 			cities = cityDao.getCities();
 			regions = regionDao.getRegions();
 			countries = countryDao.getCountries();
+			errMessage = "";
 		} catch (NamingException | SQLException e) {
 			e.printStackTrace();
 		} // try - catch
@@ -156,7 +157,7 @@ public class CityController {
 		city = new City();
 		
 //		try {
-//			setAvailableRegions(regionDao.listRegions(countries.get(0).getCode()));
+//			setAvailableRegions(regionDao.listRegions(countries.get(1).getCode()));
 //		} catch (SQLException e) {
 //			e.printStackTrace();
 //		}
@@ -183,6 +184,7 @@ public class CityController {
 		
 	} // loadRegions
 	
+	
 	public void loadCountries() {
 		try {
 			setCountries(countryDao.getCountries());
@@ -191,6 +193,37 @@ public class CityController {
 		}
 		
 	} // loadCountries
+	
+	
+	public void changeRegion(AjaxBehaviorEvent event) {
+        try {
+			setAvailableRegions(regionDao.listRegions(city.getCo_code()));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+    } // changeCountry
+	
+	
+	public String add(City city) {
+		try {
+			cityDao.add(city);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			errMessage = e.getMessage();
+		}
+		finally {
+			if (errMessage.length() != 0 ) {
+				FacesMessage message = new FacesMessage(errMessage);
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				
+				return "add_city.xhtml";
+			}
+		} // try - catch - finally
+		
+		return "list_cities.xhtml";
+		
+	} // add
 	
 	public String showDetails(City city) {
 		setCity(city);
@@ -250,15 +283,5 @@ public class CityController {
 		this.setPopulationCriteria("lt");
 		
 	} // resetSearch
-	
-	
-	public void changeRegion(AjaxBehaviorEvent event) {
-        try {
-			setAvailableRegions(regionDao.listRegions(city.getCo_code()));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-        
-    } // changeCountry
 	
 } // class CityController

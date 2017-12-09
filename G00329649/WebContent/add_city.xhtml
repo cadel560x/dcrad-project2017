@@ -28,10 +28,10 @@
 	      				
 	      				<!-- Displaying a list of existing countries in a drop-down box, so there are no invalid country codes when adding regions -->
 	      				<h:selectOneMenu id="countryCodes" value="#{cityController.city.co_code}">
-	    					<f:selectItems value="#{cityController.countries}" var="country" itemValue="#{country.code}" itemLabel="#{country.name}" />
-	    					
-	    					<!-- Ajax call to dynamically load the regions that belong the selected country -->
-	    					<f:ajax listener="#{cityController.changeRegion}" event="valueChange" render="regionCodes" execute="@this" />
+		    					<f:selectItems value="#{cityController.countries}" var="country" itemValue="#{country.code}" itemLabel="#{country.name}" />
+		    					
+		    					<!-- Ajax call to dynamically load the regions that belong the selected country -->
+		    					<f:ajax listener="#{cityController.changeRegion}" event="valueChange" render="regionCodes" execute="@this" />
 						</h:selectOneMenu>
 	    			</p>
 	    			<p>
@@ -42,7 +42,8 @@
 	      				<!-- Displaying a list of existing regions in a drop-down box, so there are no invalid region codes when adding regions -->
 	      				<!-- Ajax target to dynamically load the regions that belong the selected country -->
 	      				<h:selectOneMenu id="regionCodes" value="#{cityController.city.reg_code}">
-	    					<f:selectItems value="#{cityController.availableRegions}" var="region" itemValue="#{region.code}" itemLabel="#{region.name}" />
+		      				<f:selectItem value="#{null}" itemLabel="-- select --" />
+		    					<f:selectItems value="#{cityController.availableRegions}" var="region" itemValue="#{region.code}" itemLabel="#{region.name}" />
 						</h:selectOneMenu>
 	    			</p>
 	    			<p>
