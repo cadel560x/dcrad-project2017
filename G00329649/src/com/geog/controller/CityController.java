@@ -1,7 +1,7 @@
 package com.geog.controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -31,6 +31,7 @@ public class CityController {
 	private Region region;
 	private Country country;
 	private String populationCriteria;
+	private String populationAsString;
 	private List<City> cities;
 	private List<Region> regions;
 	private List<Region> availableRegions;
@@ -136,6 +137,14 @@ public class CityController {
 
 	public void setPopulationCriteria(String populationCriteria) {
 		this.populationCriteria = populationCriteria;
+	}
+
+	public String getPopulationAsString() {
+		return populationAsString;
+	}
+
+	public void setPopulationAsString(String populationAsString) {
+		this.populationAsString = populationAsString;
 	}
 
 	public String getErrMessage() {
@@ -255,14 +264,14 @@ public class CityController {
 	} // showDetails
 	
 	
-	public String searchCities(String population) {
+	public String searchCities() {
 		try {
 			// 'population' is a 'String' method parameter, not an integer
 			// This way, we can know if the user typed something into the corresponding input textbox.
-			if ( ! population.equals("") ) {
-				this.city.setPopulation(Integer.parseInt(population));
+			if ( ! populationAsString.equals("") ) {
+				this.city.setPopulation(Integer.parseInt(populationAsString));
 			}
-			setCities(cityDao.searchCities(this.city, population, this.populationCriteria));
+			setCities(cityDao.searchCities(this.city, populationAsString, this.populationCriteria));
 			
 			// Show a message if no cities were found
 			if ( cities.size() == 0 ) {

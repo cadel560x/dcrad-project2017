@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 
 import com.geog.model.City;
 import com.geog.model.CityDetails;
-import com.geog.model.Region;
+//import com.geog.model.Region;
 
 public class CityDao {
 //	Instance variables
@@ -75,7 +75,6 @@ public class CityDao {
 
 
 	//	Methods
-	
 	public int add(City cityAddObject) throws SQLException {
 		int rs;
 		query.append("INSERT INTO city VALUES(?, ?, ?, ?, ?, ?, ?)");
@@ -110,7 +109,7 @@ public class CityDao {
 	
 	
 	// 'cityQueryObject' is a kinda hibernate paradigm
-	public List<City> searchCities(City cityQueryObject, String population, String populationCriteria) throws SQLException {
+	public List<City> searchCities(City cityQueryObject, String populationAsString, String populationCriteria) throws SQLException {
 		PreparedStatement myStmt;
 		int stmtIndex = 0;
 		List<City> cities = new ArrayList<>();
@@ -130,7 +129,7 @@ public class CityDao {
 			query.append(" AND cty.co_code = ?");
 		}
 		
-		if ( ! population.equals("") ) {
+		if ( ! populationAsString.equals("") ) {
 			query.append(" AND population ");
 			
 			if ( populationCriteria.equalsIgnoreCase("lt") ) {
@@ -151,7 +150,7 @@ public class CityDao {
 				myStmt.setString(++stmtIndex, co_code);
 			}
 			
-			if (!population.equals("")) {
+			if (!populationAsString.equals("")) {
 				myStmt.setInt(++stmtIndex, cityQueryObject.getPopulation());
 			}
 			

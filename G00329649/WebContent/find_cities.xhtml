@@ -22,7 +22,7 @@
 	    					<f:selectItem itemValue="gt" itemLabel="Greater Than" />
 	    					<f:selectItem itemValue="eq" itemLabel="Equal To" />
 						</h:selectOneMenu>
-						<h:inputText id="population" binding="#{input1}" />
+						<h:inputText id="population" value="#{cityController.populationAsString}" />
 	    			</p>
 					<p>
 	      				<label for="countryCode">
@@ -43,7 +43,7 @@
 			</section>
 			<section>
 				<p>
-					<h:commandButton value="Search" action="#{cityController.searchCities(input1.value)}" />
+					<h:commandButton value="Search" action="#{cityController.searchCities()}" />
 				</p>
 			</section>
 		</h:form>
