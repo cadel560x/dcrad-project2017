@@ -11,7 +11,7 @@
 	<h:body>
 		<h:form>
       		<h:commandButton value="Add City" action="add_city"/>
-			<h:dataTable value = "#{cityController.cities}" var="city"
+			<h:dataTable value = "#{cityController.cities}" var="cityDetails"
 	   			styleClass="cityTable"
 	   			headerClass="cityTableHeader"
 	   			rowClasses="cityTableOddRow,cityTableEvenRow">
@@ -45,7 +45,7 @@
 			    </h:column>
 			    <h:column>
 			          <f:facet name="header">Action</f:facet>
-			          <h:commandLink value="All Details" action="#{cityController.showDetails(city)}" />
+			          <h:commandLink value="All Details" action="#{cityController.showDetails(cityDetails)}" />
 			    </h:column>
 			</h:dataTable>
 		</h:form>

@@ -10,13 +10,13 @@
 	<h:body>
 		<h2>Full City Details</h2>
 		<dl>
-			<dt>City Code: </dt><dd>#{cityController.city.code}</dd>
-			<dt>City Name: </dt><dd>#{cityController.city.name}</dd>
-			<dt>Country: </dt><dd>#{cityController.country.name}</dd>
-			<dt>Region: </dt><dd>#{cityController.region.name}</dd>
-			<dt>City Population: </dt><dd>#{cityController.city.population}</dd>
-			<dt>By the Sea: </dt><dd>#{cityController.city.coastal}</dd>
-			<dt>Area (Square Km): </dt><dd>#{cityController.city.area}</dd>
+			<dt>City Code: </dt><dd>#{cityController.cityDetails.code}</dd>
+			<dt>City Name: </dt><dd>#{cityController.cityDetails.name}</dd>
+			<dt>Country: </dt><dd>#{cityController.cityDetails.countryName}</dd>
+			<dt>Region: </dt><dd>#{cityController.cityDetails.regionName}</dd>
+			<dt>City Population: </dt><dd>#{cityController.cityDetails.population}</dd>
+			<dt>By the Sea: </dt><dd>#{cityController.cityDetails.coastal}</dd>
+			<dt>Area (Square Km): </dt><dd>#{cityController.cityDetails.area}</dd>
 		</dl>
 		<h:link value="Home" outcome="index"/> <h:link value="Cities" outcome="list_cities"/>
 	</h:body>
