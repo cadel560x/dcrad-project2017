@@ -11,8 +11,8 @@
 	<body>
 		<h:messages globalOnly="true" styleClass="error"/>
 		<h:form>
-      		<h:commandButton value="Add Country" action="add_head_of_state"/>
-			<h:dataTable value = "#{countryController.headsOfState}" var="headOfState"
+      		<h:commandButton value="Add Head of State" action="add_head_of_state"/>
+			<h:dataTable value = "#{headOfStateController.headsOfState}" var="headOfState"
 	   			styleClass="headOfStateTable"
 	   			headerClass="headOfStateTableHeader"
 	   			rowClasses="headOfStateTableOddRow,headOfStateTableEvenRow">   
@@ -21,12 +21,8 @@
 				      #{headOfState._id}
 				</h:column>
 			    <h:column>
-			          <f:facet name="header">Country Name</f:facet>
+			          <f:facet name="header">Head of State</f:facet>
 			          #{headOfState.headOfState}
-			    </h:column>
-			    <h:column>
-			          <f:facet name="header">Country Details</f:facet>
-			          #{country.details}
 			    </h:column>
 			    <h:column>
 				      <f:facet name="header">Action</f:facet>

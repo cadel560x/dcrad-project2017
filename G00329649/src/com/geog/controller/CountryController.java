@@ -118,7 +118,7 @@ public class CountryController {
 		
 		return "list_countries.xhtml";
 		
-	} // update
+	} // updateCountry
 	
 	
 	public String delete(Country country) {
@@ -136,6 +136,6 @@ public class CountryController {
 		} // try - catch - finally
 		
 		return "list_countries.xhtml";
-	}
+	} // delete
 	
 } // class CountryController
