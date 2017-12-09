@@ -5,42 +5,40 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	<h:head>
 		<meta charset="UTF-8" />
-		<title>Add Country</title>
+		<title>Add Head of State</title>
+		<f:event type="preRenderView" listener="#{headOfStateController.loadCountries}" />
 	</h:head>
 	<h:body>
 		<h:messages globalOnly="true" styleClass="error"/>
 		<h:form>
-			<h2>Add Country</h2>
+			<h2>Add Head of State</h2>
 			<section>
 				<fieldset>
 					<p>
 	      				<label for="countryCode">
-	        					<span>Code: </span>
+	        				<span>Country Code: </span>
 	      				</label>
-	      				<h:inputText id="countryCode" value="#{country.code}" required="true" />
-	      				<h:messages for="countryCode" styleClass="error"/>
+	      				
+	      				<!-- Displaying a list of existing countries in a drop-down box, so there are no invalid country codes when adding heads of state -->
+	      				<h:selectOneMenu id="countryCodes" value="#{headOfStateController.headOfState._id}" >
+	    					<f:selectItems value="#{headOfStateController.countries}" var="country" itemValue="#{country.code}" itemLabel="#{country.name}" />
+						</h:selectOneMenu>
 	    			</p>
 	    			<p>
-	      				<label for="countryName">
-	        					<span>Name: </span>
+	      				<label for="headOfStateName">
+	        				<span>Head of State: </span>
 	      				</label>
-	      				<h:inputText id="countryName" value="#{country.name}" required="true" />
-	      				<h:messages for="countryName" styleClass="error"/>
-	    			</p>
-	    			<p>
-	      				<label for="countryDetails">
-	        					<span>Details: </span>
-	      				</label>
-	      				<h:inputText id="countryDetails" value="#{country.details}" maxlength="400" />
+	      				<h:inputText id="headOfStateName" value="#{headOfStateController.headOfState.headOfState}" required="true" />
+	      				<h:messages for="headOfStateName" styleClass="error"/>
 	    			</p>
 				</fieldset>
 			</section>
 			<section>
 				<p>
-					<h:commandButton value="Add" action="#{countryController.add(country)}" />
+					<h:commandButton value="Add" action="#{headOfStateController.add(headOfStateController.headOfState)}" />
 				</p>
 			</section>
 		</h:form>
-		<h:link value="Home" outcome="index"/> <h:link value="Countries" outcome="list_countries"/>
+		<h:link value="Home" outcome="index"/> <h:link value="Heads of State" outcome="list_heads_of_state"/>
 	</h:body>
 </html>

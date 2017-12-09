@@ -1,19 +1,17 @@
 package com.geog.dao;
 
 import com.geog.model.HeadOfState;
-import com.geog.model.Region;
 import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 
 public class HeadOfStateDao {
@@ -38,7 +36,7 @@ public class HeadOfStateDao {
 	
 	
 //	Methods
-	public List<HeadOfState> getHeadsOfState() {
+	public List<HeadOfState> getHeadsOfState() throws Exception {
 		headsOfStateList = new ArrayList<>();
 		Gson gson = new Gson();
 		
@@ -54,27 +52,22 @@ public class HeadOfStateDao {
 	} // getHeadsOfState
 
 	
-//	public int add(HeadOfState headOfState) throws SQLException {
-//		int rs;
-//		query.append("INSERT INTO region VALUES(?, ?, ?, ?)");
-//		
-//		try {
-//			PreparedStatement myStmt = conn.prepareStatement(query.toString());
-//			
-//			myStmt.setString(1, regionAddObject.getCo_code());
-//			myStmt.setString(2, regionAddObject.getCode());
-//			myStmt.setString(3, regionAddObject.getName());
-//			myStmt.setString(4, regionAddObject.getDesc());
-//			
-//			rs = myStmt.executeUpdate();
-//		} finally {
-//			// Reset the StringBuilder		
-//			query.setLength(0);
-//			
-//		} // try - finally
-//		
-//		return rs;
-//		
-//	} // add
+	public void add(HeadOfState headOfState) throws Exception  {
+		Document docHeadofState = new Document();
+		
+		docHeadofState.append("_id", headOfState.get_id());
+		docHeadofState.append("headOfState", headOfState.getHeadOfState());
+		
+		headsOfState.insertOne(docHeadofState);
+		
+	} // add
+	
+	
+	public void delete(HeadOfState headOfState) throws Exception  {
+		Bson filter = new Document("_id", headOfState.get_id());
+		
+		headsOfState.deleteOne(filter);
+		
+	} //  delete
 	
 } // class HeadOfStateDao

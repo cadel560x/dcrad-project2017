@@ -20,7 +20,7 @@
 	      				</label>
 	      				
 	      				<!-- Displaying a list of existing countries in a drop-down box, so there are no invalid country codes when adding regions -->
-	      				<h:selectOneMenu id="countryCodes" value="#{region.co_code}">
+	      				<h:selectOneMenu id="countryCodes" value="#{region.co_code}" >
 	    					<f:selectItems value="#{regionController.countries}" var="country" itemValue="#{country.code}" itemLabel="#{country.name}" />
 						</h:selectOneMenu>
 	    			</p>

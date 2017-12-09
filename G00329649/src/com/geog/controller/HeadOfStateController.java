@@ -18,6 +18,7 @@ import com.geog.model.HeadOfState;
 @SessionScoped
 public class HeadOfStateController {
 //	Instance variables
+	private HeadOfState headOfState;
 	private List<HeadOfState> headsOfState;
 	private List<Country> countries;
 	private CountryDao countryDao;
@@ -33,17 +34,28 @@ public class HeadOfStateController {
 			headOfStateDao = new HeadOfStateDao();
 			countryDao = new CountryDao();
 			
+			headOfState = new HeadOfState();
 			headsOfState = headOfStateDao.getHeadsOfState();
 			errMessage = "";
 		} catch (NamingException | SQLException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
+
+
+
+
+	//	Accessors and mutators
+	public HeadOfState getHeadOfState() {
+		return headOfState;
+	}
+
+	public void setHeadOfState(HeadOfState headOfState) {
+		this.headOfState = headOfState;
+	}
 	
-	
-	
-	
-//	Accessors and mutators
 	public List<HeadOfState> getHeadsOfState() {
 		return headsOfState;
 	}
@@ -65,12 +77,16 @@ public class HeadOfStateController {
 
 //	Methods
 	public void load() {
-		
+		loadHeadsOfState();
 	} // load
 	
 	
 	public void loadHeadsOfState() {
-		setHeadsOfState(headOfStateDao.getHeadsOfState());
+		try {
+			setHeadsOfState(headOfStateDao.getHeadsOfState());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	} // loadHeadsOfState
 	
@@ -85,43 +101,43 @@ public class HeadOfStateController {
 	} // loadCountries
 	
 	
-//	public String add(HeadOfState headOfState) {
-//		try {
-//			headOfStateDao.add(headOfState);
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			errMessage = e.getMessage();
-//		}
-//		finally {
-//			if (errMessage.length() != 0 ) {
-//				FacesMessage message = new FacesMessage(errMessage);
-//				FacesContext.getCurrentInstance().addMessage(null, message);
-//				
-//				return "add_head_of_state.xhtml";
-//			}
-//		} // try - catch - finally
-//		
-//		return "list_heads_of_state.xhtml";
-//		
-//	} // add
-//	
-//	
-//	public String delete(HeadOfState headOfState) {
-//		try {
-//			countryDao.delete(headOfState);
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			errMessage = e.getMessage();
-//		}
-//		finally {
-//			if (errMessage.length() != 0 ) {
-//				FacesMessage message = new FacesMessage(errMessage);
-//				FacesContext.getCurrentInstance().addMessage(null, message);
-//			}
-//		} // try - catch - finally
-//		
-//		return "list_heads_of_state.xhtml";
-//		
-//	} // delete
+	public String add(HeadOfState headOfState) {
+		try {
+			headOfStateDao.add(headOfState);
+		} catch (Exception e) {
+			e.printStackTrace();
+			errMessage = e.getMessage();
+		}
+		finally {
+			if (errMessage.length() != 0 ) {
+				FacesMessage message = new FacesMessage(errMessage);
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				
+				return "add_head_of_state.xhtml";
+			}
+		} // try - catch - finally
+		
+		return "list_heads_of_state.xhtml";
+		
+	} // add
+	
+	
+	public String delete(HeadOfState headOfState) {
+		try {
+			headOfStateDao.delete(headOfState);
+		} catch (Exception e) {
+			e.printStackTrace();
+			errMessage = e.getMessage();
+		}
+		finally {
+			if (errMessage.length() != 0 ) {
+				FacesMessage message = new FacesMessage(errMessage);
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			}
+		} // try - catch - finally
+		
+		return "list_heads_of_state.xhtml";
+		
+	} // delete
 	
 } // class CountryController
